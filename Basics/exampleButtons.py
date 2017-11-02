@@ -1,5 +1,6 @@
 from tkinter import *
 isOpen = True
+x = True
 
 """This Script is the Basic logic for the GUI (It will obviously have
 custom buttons and not be default buttons. Just created this to refer
@@ -26,6 +27,7 @@ class Window(Frame):
         """Minor error (Forever loops and you can't clikck the
         gui
         """
+        x = False
         while(isOpen == True):
             self.runnerName = input("[Runner Name]: ")
             self.runnerTime = input("[Runner Time]: ")
@@ -36,7 +38,8 @@ class Window(Frame):
             print(self.rTime)
             print(self.rName)
     def output(self):
-        isOpen == False
+        if(x = False):
+            isOpen == False
         
 
 root = Tk()
