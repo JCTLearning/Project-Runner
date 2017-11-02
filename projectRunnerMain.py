@@ -5,7 +5,7 @@ class startUp:
 	def __init__(self):
 		self.x = 0
 	def buildMain(self):
-		print('DIk')
+		print('Dk')
 
 
 class cliCode:
@@ -14,7 +14,7 @@ class cliCode:
 	def mainFunct(self):
 
 		self.x = 1
-		self.y = 20
+		self.y = 5 # shorting the var so we can lower run time
 		while (self.x != self.y):
 			self.runnerName = input("[Runner Name]: ")
 			self.runnerTime = input("[Runner Time]: ")
@@ -32,16 +32,17 @@ class cliCode:
 	def printData(self):
 		self.runner = 1
 		self.x = 1 
-		self.y = 20
+		self.y = 5 # shorting the var so we can lower run time
 		while(self.x!=self.y):
-			with open('runners.json', 'r') as self.runnerData:
-				self.runnerName = self.runnerData[self.runner]['RunnerName']
-				self.runnerTime = self.runnerData[self.runner]['RunnerTime']
-				print(self.runner)
-				print(self.runnerName)
-				print(self.runnerTime)
-				self.runner = self.runner + 1 
-				self.x = self.x + 1
+                        with open('runners.json', 'r') as self.runnerDataFile:
+                                self.runnerData = json.load(self.runnerDataFile)
+                        self.runnerName = self.runnerData[self.runner]['RunnerName']
+                        self.runnerTime = self.runnerData[self.runner]['RunnerTime']
+			print(self.runner)
+			print(self.runnerName)
+			print(self.runnerTime)
+			self.runner = self.runner + 1 
+			self.x = self.x + 1
 
 
 cliCodeC = cliCode()
