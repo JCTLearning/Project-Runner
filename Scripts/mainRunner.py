@@ -11,15 +11,14 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
         self.windowC()
-    def striptime(tstr):
-        m, s = tstr.split(':')
-        return int(m) * 60 + int(s)
     def manipulate(self):
         self.runnerName = self.e.get()
         self.runnerTime = self.e1.get()
         try:
             self.dab = striptime(self.runnerTime)
             print(self.dab)
+            self.output = Label(self.master, text=self.runnerName+':'+str(self.dab))
+            self.output.grid(row = 1, column = 7)
         except:
             print("Something went wrong")
             self.root.destroy()
@@ -41,8 +40,10 @@ class Window(Frame):
         Button(self.master, text="Enter", command=self.manipulate).grid(row = 1, column = 2)
         self.e = Entry(self.master)
         self.e1 = Entry(self.master)
-
-        
+        self.outputT = Label(self.master, text='Name:Seconds')
+        self.outputT.grid(row = 0, column = 7)
+        self.label2 = Label(self.master, text='                                        ')
+        self.label2.grid(column = 3)
         self.e.grid(row=0, column = 1)
         self.e1.grid(row=1, column = 1)
 
