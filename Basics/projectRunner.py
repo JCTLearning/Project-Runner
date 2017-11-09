@@ -40,7 +40,7 @@ class gui:
 		print('Start of Team Page building.')
 		self.mainFrames = Frame(self.root)
 		self.mainFrames.pack()
-		self.test = Label(self.mainFrames, text='Test')
+		self.title = Label(self.mainFrames, text='Teams')
 		self.test.grid()
 		#Define the main team page data stuff here
 		
@@ -48,7 +48,7 @@ class gui:
 		print('Building runner GUI')
 		self.mainFrame = Frame(self.root)
 		self.mainFrame.pack()
-		self.test = Label(self.mainFrames, text='Test')
+		self.title = Label(self.mainFrames, text='Runners')
 		self.test.grid()
 guiC = gui()
 guiC.mainPage()
