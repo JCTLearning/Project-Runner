@@ -17,7 +17,7 @@ def buildJson():
     buildDb()
 def buildDb():
     with open("dbfiles.json", "r") as dbFile:
-        dbData = json.load(self.dbFile)
+        dbData = json.load(dbFile)
         numOfDb = int(dbData["dbFiles"])
         numOfDb = numOfDb + 1
         global dbList
@@ -31,6 +31,7 @@ def buildDb():
             x = x + 1
         print('Done inserting into the list. Avalible dB files are...')
         print(dbList)
+        manipDb()
 def manipDb():
     print("creating our Database file(s) . . . ")
     """
@@ -59,15 +60,19 @@ def manipDb():
     """
     #Going to make it one param because SCReW thAT?
     try:
-        c.execute("CREATE TABLE Identification(RunnerID INT)")
-        c.execute("CREATE TABLE stats(Race1 Text)")
+        c.execute("CREATE TABLE Identification(RunnerID TEXT)")
+        c.execute("CREATE TABLE Stats(Race1 Text)")
     except lite.Error as e:
         print(e)
-    a = input("[RunnerId]: ")
+    a1 = input("[RunnerId]: ")
+    a = str(a1)
     b = input("[RunnerName]: ")
     try:
-        c.execute("INSERT INTO Identification(RunnerID INT) VALUES('"+a+"')")
-        c.execute("INERT INTO Stats(Race1) VALUES('"+b+"')")
+        
+        c.execute("INSERT INTO Identification(RunnerID) VALUES('"+a+"')")
+        print("Inserted values into Identification")
+        c.execute("INSERT INTO Stats(Race1) VALUES('"+b+"')")
+        print("Inserted values into Stats")
     except lite.Error as e:
         print(e)
     """
@@ -81,6 +86,96 @@ def manipDb():
     except lite.Error as e:
         print(e)
     print('k')
+    conn = lite.connect('TeamTwo.db')
+    c = conn.cursor()
+    try:
+        c.execute("CREATE TABLE Identification(RunnerID TEXT)")
+        c.execute("CREATE TABLE Stats(Race1 TEXT)")
+    except lite.Error as e:
+        print(e)
+
+    c1 = input("[RunnerId]: ")
+    c2 = str(c1)
+    d = input("[RunnerName]: ")
+
+    try:
+        c.execute("INSERT INTO Identification(RunnerID) VALUES('"+c2+"')")
+        print("Inserted values into Identification")
+        c.execute("INSERT INTO Stats(Race1) VALUES ('"+d+"')")
+        print("Inserted values into Stats")
+    except lite.Error as e:
+        print(e)
+    try:
+        conn.commit()
+        c.close()
+    except lite.Error as e:
+        print(e)
+    querydB()
+def querydB():
+    data = []
+    dataS = []
+    sData1 = ""
+    sData = ""
+    fData = ""
+    fData1 = ""
+    print("Querying database")
+    """
+    QUERYING:
+    Here we are essentially fetching all data set from the table and putting
+    them in a data list we can manipulate. You can also use fetchone() to fetch
+    a specific data set.
+    """
+    conn = lite.connect('TeamOne.db')
+    c = conn.cursor()
+    try:
+        c.execute("SELECT * FROM Identification")
+        data = c.fetchall()
+        fData = '\n'.join(elem[0] for elem in data)
+    except lite.Error as e:
+        print(e)
+    try:
+        c.execute("SELECT * FROM Stats")
+        data1 = c.fetchall()
+        fData1 = '\n'.join(elem[0] for elem in data)
+    except lite.Error as e:
+        print(e)
+    print("Printing stats table...")
+    print(fData1)
+    print("Printing identification table...")
+    print(fData)
+    c.close()
+    conn = lite.connect('TeamTwo.db')
+    c = conn.cursor()
+    try:
+        c.execute("SELECT * FROM Identification")
+        dataS = c.fetchall()
+        sData = '\n'.join(elem[0] for elem in dataS)
+    except lite.Error as e:
+        print(e)
+    try:
+        c.execute("SELECT * FROM Stats")
+        data2 = c.fetchall()
+        sData1 = '\n'.join(elem[0] for elem in data)
+    except lite.Error as e:
+        print(e)
+    c.close()
+    print("Printing stats table....")
+    print(sData1)
+    print("Prnting identification table..")
+    print(sData)
+    print("Done querying")
+        
+    
+
+"""
+Minor issue -
+Not inserting text values into the database file
+I added print functions to test if the data inserts right.
+It returns. It has to be an error with the table creation (doesn't
+create both columns properly)
+"""
+        
+    
 
 
 
