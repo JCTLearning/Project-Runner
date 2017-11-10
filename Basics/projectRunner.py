@@ -82,10 +82,14 @@ class gui:
 			self.txt = 'Runner ID: '+self.runnerIdStr+' Name: '+items
 			if(items!='null'):
 				"""
-				['runners%runnerId' % self.runnerId] -- Creates a Var name based around the ID
+				locals()['runners%runnerId' % self.runnerId] -- Creates a Var name based around the ID
 				"""
 				locals()['runners%runnerId' % self.runnerId] = Label(self.runnersFrame, text = self.txt)
 				locals()['runners%runnerId' % self.runnerId].grid(row = self.rowNum)
+				"""
+				The debate is whether to create each runner graphic here, or not... it seenms logical todo so...
+				"""
+				
 				self.runnerId = self.runnerId + 1
 				self.rowNum = self.rowNum + 1
 			else:
