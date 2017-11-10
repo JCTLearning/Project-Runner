@@ -70,6 +70,27 @@ class gui:
 		self.teamId = dataC.getTeamId()
 		self.teamBanner = Label(self.teamDisplayFrame, text= self.teamId)
 		self.teamBanner.pack()
+		"""
+		Runers display
+		"""
+		self.rowNum = 0
+		self.runnerId = 1
+		self.runners = dataC.getRunners()
+
+		for items in self.runners:
+			self.runnerIdStr = str(self.runnerId)
+			self.txt = 'Runner ID: '+self.runnerIdStr+' Name: '+items
+			if(items!='null'):
+				"""
+				['runners%runnerId' % self.runnerId] -- Creates a Var name based around the ID
+				"""
+				locals()['runners%runnerId' % self.runnerId] = Label(self.runnersFrame, text = self.txt)
+				locals()['runners%runnerId' % self.runnerId].grid(row = self.rowNum)
+				self.runnerId = self.runnerId + 1
+				self.rowNum = self.rowNum + 1
+			else:
+				pass
+		
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Build successfull...')
 	def buildRunners(self):
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'start of runner GUI')
@@ -82,16 +103,8 @@ class data:
 		"""
 		Here is where we should bring in our databases, and any other data bases.
 		"""
-		"""
-		Below is doing some weird formats so... I guess ill just define x here and leave init blank? I can never get init to work properly ://
-		try:
-			print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Fetching Data Base...')
-			with open("data.json", "r") as self.dataFile:
-				self.dbData = json.load(self.dataFile)
-		except FileNotFoundError:
-			print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'DB can not be found, creating one and populating it...')
-			self.addDataToJson()
-		"""
+
+
 	def openJson(self):
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Attempting to open the Db...')
 		with open("data.json", "r") as self.dataFile:
@@ -111,19 +124,27 @@ class data:
 			print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Either data fetch failed, or json file is not populated... Going to attempt to open json...')
 			try:
 				self.openJson()
+				self.teamId = self.dbData['teamId']
+				return self.teamId
 				pass
 			except:
 				print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Attempting to populate the JSON file...')
 				self.addDataToJson()
-			try:
 				self.teamId = self.dbData['teamId']
-				print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Successful fetching. Returning data now...')
-				return self.teamId
-			except:
-				print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Json population attempt failed... exiting program.')
-				import sys
-				sys.exit()
-	
+				return self.teamId				
+	def getRunners(self):
+		self.runnerList = []
+
+		self.r1 = self.dbData['1']
+		self.r2 = self.dbData['2']
+		self.r3 = self.dbData['3']
+		self.runnerList.insert(0, self.r1)
+		self.runnerList.insert(1, self.r2)
+		self.runnerList.insert(2, self.r3)
+		self.runnerList.insert(3, 'null')
+		return self.runnerList
+
+
+
 guiC = gui()
 guiC.mainPage()
-
