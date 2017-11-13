@@ -14,3 +14,7 @@ Table 2:
 	5: 10:45, 10:22, 9:04, PB: 9:04, Mile: 8:22
 	
 	
+Table 3:
+	Race Adv: 10:02
+	Mile Adv: 8:30
+	
