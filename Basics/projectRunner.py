@@ -95,15 +95,33 @@ class gui:
 		"""
 		Team stats
 		"""
+		"""
+		PRINT RUNNER STATS
+		"""
+		if(self.canDb=='True'):
+			self.total = dataC.getTotalNumberOfRunners()
+			self.total = int(self.total)+1 #Allows us to use a != statement and still get the last result :p
+			self.i = 1
+			self.rowNum = 1
+			while(self.i!=self.total):
+				self.runnerStats = dataC.getDataOnTeam(self.i)
+				locals()['runnerStat%runner' % self.i] = Label(self.teamStatsFrame, text = self.runnerStats, background = "Black")
+				locals()['runnerStat%runner' % self.i].grid(row = self.rowNum)
+				self.i = int(self.i) + 1
+				self.rowNum = int(self.rowNum) + 1
+			
+		"""
+		PRINT TEAM STATS
+		"""
 		if(self.canDb=='True'):
 			self.teamRaceAdv = dataC.fetchTeamAdv()
 			self.raceId = 1
-			self.rowNum = 0
+			self.columnNum = 0
 			for items in self.teamRaceAdv:
-				locals()['race%raceId' % self.raceId] = Label(self.teamStatsFrame, text = 'Race'+str(self.raceId)+': '+str(items))
-				locals()['race%raceId' % self.raceId].grid(row = self.rowNum)
+				locals()['race%raceId' % self.raceId] = Label(self.teamStatsFrame, text = 'Race'+str(self.raceId)+': '+str(items), background = 'black', borderwidth = 2)
+				locals()['race%raceId' % self.raceId].grid(row = self.rowNum, column = self.columnNum )
 				self.raceId = self.raceId + 1
-				self.rowNum = self.rowNum + 1
+				self.columnNum = self.columnNum + 1
 		if(self.canDb=='False'):
 			self.failureT2 = Label(self.runnersFrame, text='Failure -- Could not find db, or we has a importation error')
 			self.failureT2.grid()
@@ -145,6 +163,9 @@ class data:
 				break
 			return self.teamId
 	def fetchTeamAdv(self):
+		"""
+		The # prints are for math debug
+		"""
 		dataList = []
 		self.advNum = 0
 		self.totalNum = 0
@@ -162,21 +183,69 @@ class data:
 				self.total = self.total+int(s)
 				self.advNum = int(self.advNum) + int(self.total)
 				self.totalNum = int(self.totalNum) + 1
-			print(self.advNum)
-			print(self.totalNum)
+			#print(self.advNum)
+			#print(self.totalNum)
 			self.raceAdv = int(self.advNum) / int(self.totalNum)
-			print(self.raceAdv)
+			#print(self.raceAdv)
 			self.mins = str(int(self.raceAdv) / 60)
 			self.mins, self.undeeded = self.mins.split('.')
 			self.mins = str(self.mins)
 			self.seconds = int(int(self.mins) * 60)
 			self.seconds = int(self.raceAdv - self.seconds)
 			self.seconds = str(self.seconds)
-			print('Race '+str(self.race+1)+': '+self.mins+':'+self.seconds)
+			#print('Race '+str(self.race+1)+': '+self.mins+':'+self.seconds)
 			self.time = str(self.mins)+':'+str(self.seconds)
 			dataList.insert(self.race, self.time)
 			self.race = self.race + 1
 		return dataList	
-
+	def getDataOnTeam(self, i):
+		conn = lite.connect('data/runner.db')
+		c = conn.cursor()
+		c.execute("select * from Stats")
+		data = c.fetchall()
+		c.execute("select * from Identification")
+		teamData = c.fetchall() 
+		self.dataRow = '1'
+		i = str(i)
+		for elem in data:
+			if(self.dataRow!=i):
+				self.dataRow = str(int(self.dataRow)+1) #Since we're not on the right row we're gonna add a row and repackage then try again
+				pass
+			if(self.dataRow==i):	
+				self.dataRow = int(self.dataRow)+1 #we add this so it won't keep looping smh, logic could be fixed but eh it works
+				self.dataRow = str(self.dataRow) #Repackage in a string	
+				for elem2 in teamData:
+					
+					
+					if(elem2[0]!=i):
+						pass
+					if(elem2[0]==i):
+						"""
+						FORMAT OUTPUT AND RETURN IT
+						"""
+						dbList = []
+						elemNum = 0 
+						dbList.insert(elemNum, elem2[0])
+						elemNum = elemNum + 1
+						dbList.insert(elemNum, elem2[1])
+						elemNum = elemNum + 1
+						dbList.insert(elemNum, elem2[2])
+						elemNum = elemNum + 1 
+						dbList.insert(elemNum, elem[0])
+						elemNum = elemNum + 1 
+						dbList.insert(elemNum, elem[1])
+						elemNum = elemNum + 1 
+						dbList.insert(elemNum, elem[2])
+						
+						return(dbList)
+	def getTotalNumberOfRunners(self):
+		conn = lite.connect('data/runner.db')
+		c = conn.cursor()
+		c.execute("select * from Identification")
+		self.data = c.fetchall()
+		self.numOfRunners = 0
+		for items in self.data:
+			self.numOfRunners = self.numOfRunners+1
+		return(self.numOfRunners)
 guiC = gui()
 guiC.mainPage()
