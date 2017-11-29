@@ -7,12 +7,12 @@ import sqlite3 as lite
 class gui:
 	def __init__(self):
 		"""
-		Here is where we would start defining vars, or the db files we need to grab etc, etc.	
+		Here is where we would start defining vars, or the db files we need to grab etc, etc.
 		"""
 	def mainPage(self):
 		self.root = Tk()
 		self.root.geometry("600x1000")
-		
+
 		"""
 		Frames
 		"""
@@ -25,16 +25,16 @@ class gui:
 		self.mainFrame.pack(anchor = "center")
 		self.teamsFrame.grid(column = 0)
 		self.runnersFrame.grid(column = 1)
-		
+
 		"""
 		Basic Buttons To Change Pages
 		"""
 		self.teamButton = Button(self.teamsFrame, text="Teams", command = lambda: [self.mainFrame.pack_forget(), self.buildTeam()])
 		self.teamButton.grid()
-		
+
 		self.runnersButton = Button(self.runnersFrame, text='Runners', command=lambda: [self.mainFrame.pack_forget(), self.buildRunners()])
 		self.runnersButton.grid()
-	
+
 
 		self.root.mainloop()
 	def buildTeam(self):
@@ -61,10 +61,10 @@ class gui:
 		"""
 		Main Page Call Back
 		"""
-		self.mainPageButton = Button(self.mainPageBut, text = 'Main Page', command = lambda: [self.root.destroy(), self.mainPage()]) #self.mainFrame.pack_forget() Doesn't work while calling mainpage because we create a new tkinter window... 
+		self.mainPageButton = Button(self.mainPageBut, text = 'Main Page', command = lambda: [self.root.destroy(), self.mainPage()]) #self.mainFrame.pack_forget() Doesn't work while calling mainpage because we create a new tkinter window...
 		self.mainPageButton.pack()
 		"""
-		Team display	
+		Team display
 		"""
 
 		dataC = data()
@@ -73,8 +73,9 @@ class gui:
 		self.teamBanner = Label(self.teamDisplayFrame, text= 'Team ID: '+self.teamId)
 		self.teamBanner.pack()
 		"""
+		## this is commented out because in truth we don't need it. ##
 		Runers display
-		"""
+
 		self.rowNum = 0
 		dataC = data()
 		self.canDb = dataC.openDataBase()
@@ -93,6 +94,7 @@ class gui:
 			self.failureT = Label(self.runnersFrame, text='Failure -- Could not find db, or we has a importation error')
 			self.failureT.grid()
 		"""
+		"""
 		Team stats
 		"""
 		"""
@@ -105,11 +107,11 @@ class gui:
 			self.rowNum = 1
 			while(self.i!=self.total):
 				self.runnerStats = dataC.getDataOnTeam(self.i)
-				locals()['runnerStat%runner' % self.i] = Label(self.teamStatsFrame, text = self.runnerStats, background = "Black")
+				locals()['runnerStat%runner' % self.i] = Label(self.teamStatsFrame, text = self.runnerStats)
 				locals()['runnerStat%runner' % self.i].grid(row = self.rowNum)
 				self.i = int(self.i) + 1
 				self.rowNum = int(self.rowNum) + 1
-			
+
 		"""
 		PRINT TEAM STATS
 		"""
@@ -118,7 +120,7 @@ class gui:
 			self.raceId = 1
 			self.columnNum = 0
 			for items in self.teamRaceAdv:
-				locals()['race%raceId' % self.raceId] = Label(self.teamStatsFrame, text = 'Race'+str(self.raceId)+': '+str(items), background = 'black', borderwidth = 2)
+				locals()['race%raceId' % self.raceId] = Label(self.teamStatsFrame, text = 'Race'+str(self.raceId)+': '+str(items), borderwidth = 2)
 				locals()['race%raceId' % self.raceId].grid(row = self.rowNum, column = self.columnNum )
 				self.raceId = self.raceId + 1
 				self.columnNum = self.columnNum + 1
@@ -175,7 +177,7 @@ class data:
 		self.data = self.c.fetchall()
 		self.race = 0
 		for self.items in self.data:
-		
+
 			for self.time in self.data:
 				self.strTime = str(self.time[self.race])
 				m, s = self.strTime.split(':')
@@ -197,26 +199,26 @@ class data:
 			self.time = str(self.mins)+':'+str(self.seconds)
 			dataList.insert(self.race, self.time)
 			self.race = self.race + 1
-		return dataList	
+		return dataList
 	def getDataOnTeam(self, i):
 		conn = lite.connect('data/runner.db')
 		c = conn.cursor()
 		c.execute("select * from Stats")
 		data = c.fetchall()
 		c.execute("select * from Identification")
-		teamData = c.fetchall() 
+		teamData = c.fetchall()
 		self.dataRow = '1'
 		i = str(i)
 		for elem in data:
 			if(self.dataRow!=i):
 				self.dataRow = str(int(self.dataRow)+1) #Since we're not on the right row we're gonna add a row and repackage then try again
 				pass
-			if(self.dataRow==i):	
+			if(self.dataRow==i):
 				self.dataRow = int(self.dataRow)+1 #we add this so it won't keep looping smh, logic could be fixed but eh it works
-				self.dataRow = str(self.dataRow) #Repackage in a string	
+				self.dataRow = str(self.dataRow) #Repackage in a string
 				for elem2 in teamData:
-					
-					
+
+
 					if(elem2[0]!=i):
 						pass
 					if(elem2[0]==i):
@@ -224,19 +226,19 @@ class data:
 						FORMAT OUTPUT AND RETURN IT
 						"""
 						dbList = []
-						elemNum = 0 
+						elemNum = 0
 						dbList.insert(elemNum, elem2[0])
 						elemNum = elemNum + 1
 						dbList.insert(elemNum, elem2[1])
 						elemNum = elemNum + 1
 						dbList.insert(elemNum, elem2[2])
-						elemNum = elemNum + 1 
+						elemNum = elemNum + 1
 						dbList.insert(elemNum, elem[0])
-						elemNum = elemNum + 1 
+						elemNum = elemNum + 1
 						dbList.insert(elemNum, elem[1])
-						elemNum = elemNum + 1 
+						elemNum = elemNum + 1
 						dbList.insert(elemNum, elem[2])
-						
+
 						return(dbList)
 	def getTotalNumberOfRunners(self):
 		conn = lite.connect('data/runner.db')
