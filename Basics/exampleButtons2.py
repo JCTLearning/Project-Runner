@@ -1,7 +1,7 @@
 from tkinter import *
 
 import sqlite3 as lite
-class fckingTeamDataH3ll():
+class main():
     def __init__(self):
         self.x = 1
     def buildMain(self):
