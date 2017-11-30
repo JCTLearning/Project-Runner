@@ -2,7 +2,9 @@ import os
 import json
 from tkinter import *
 import sqlite3 as lite
-
+"""
+-t = taylor note
+"""
 
 class gui:
 	def __init__(self):
@@ -39,9 +41,7 @@ class gui:
 		self.root.mainloop()
 	def buildTeam(self):
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Start of Team Page building...')
-		"""
-		Gonna pull data from a json file for now...
-		"""
+
 		"""
 		Frames
 		"""
@@ -49,20 +49,35 @@ class gui:
 		self.mainPageBut = Frame(self.mainFrame)
 		self.teamDisplayFrame = Frame(self.mainFrame)
 		self.runnersFrame = Frame(self.mainFrame)
-		self.teamStatsFrame = Frame(self.mainFrame)
+		self.canvas = Canvas(self.mainFrame)
+		self.teamStatsFrame = Frame(self.canvas)
 		"""
 		Pack Frames
 		"""
-		self.mainFrame.pack()
+		self.mainFrame.grid()
 		self.mainPageBut.grid(column = 0, row = 0)
 		self.teamDisplayFrame.grid(column = 1, row = 0)
 		self.runnersFrame.grid(column = 1, row = 1)
-		self.teamStatsFrame.grid(column = 0, row = 1)
+		self.teamStatsFrame.grid(column = 1, row = 1)
+		"""
+		Scroll Wheel Hell
+		"""
+		self.scrollb = Scrollbar(self.root, orient="vertical",command=self.canvas.yview)
+		self.canvas['yscrollcommand'] = self.scrollb.set   #attach scrollbar to frameTwo - t
+		self.canvas.create_window((0,0),window=self.teamStatsFrame,anchor='nw')
+		self.scrollb.grid(row=1, column=1, sticky='nsew')
+		self.teamStatsFrame.bind("<Configure>", self.scrollFunction)
+		self.scrollb.grid_forget()
+
+		self.canvas.grid(row = 2, column = 0)
+
+
+
 		"""
 		Main Page Call Back
 		"""
 		self.mainPageButton = Button(self.mainPageBut, text = 'Main Page', command = lambda: [self.root.destroy(), self.mainPage()]) #self.mainFrame.pack_forget() Doesn't work while calling mainpage because we create a new tkinter window...
-		self.mainPageButton.pack()
+		self.mainPageButton.grid()
 		"""
 		Team display
 		"""
@@ -71,14 +86,12 @@ class gui:
 		self.teamId = dataC.fetchTeamId()
 
 		self.teamBanner = Label(self.teamDisplayFrame, text= 'Team ID: '+self.teamId)
-		self.teamBanner.pack()
+		self.teamBanner.grid()
 		"""
 		## this is commented out because in truth we don't need it. ##
 		Runers display
 
 		self.rowNum = 0
-		dataC = data()
-		self.canDb = dataC.openDataBase()
 		if(self.canDb=='True'):
 			self.conn = lite.connect('data/runner.db')
 			self.c = self.conn.cursor()
@@ -94,6 +107,8 @@ class gui:
 			self.failureT = Label(self.runnersFrame, text='Failure -- Could not find db, or we has a importation error')
 			self.failureT.grid()
 		"""
+		dataC = data()
+		self.canDb = dataC.openDataBase() #Goes ahead and checks for database
 		"""
 		Team stats
 		"""
@@ -102,16 +117,30 @@ class gui:
 		"""
 		if(self.canDb=='True'):
 			self.total = dataC.getTotalNumberOfRunners()
-			self.total = int(self.total)+1 #Allows us to use a != statement and still get the last result :p
+			self.total = int(self.total)+1 #Allows us to use a != statement and still get the last result :p -t
 			self.i = 1
 			self.rowNum = 1
 			while(self.i!=self.total):
 				self.runnerStats = dataC.getDataOnTeam(self.i)
+
+				"""
+				Fix the output below where each item in the data list gets in own column :P
+				"""
+				print(self.output)
 				locals()['runnerStat%runner' % self.i] = Label(self.teamStatsFrame, text = self.runnerStats)
 				locals()['runnerStat%runner' % self.i].grid(row = self.rowNum)
 				self.i = int(self.i) + 1
 				self.rowNum = int(self.rowNum) + 1
+		#ss
 
+		self.x = 10
+		while(self.x!=50):
+
+			locals()['runnerStat%runner' % self.x] = Label(self.teamStatsFrame, text = self.x)
+			locals()['runnerStat%runner' % self.x].grid(row = self.x)
+			self.x = int(self.x) + 1
+
+		#ss
 		"""
 		PRINT TEAM STATS
 		"""
@@ -127,11 +156,17 @@ class gui:
 		if(self.canDb=='False'):
 			self.failureT2 = Label(self.runnersFrame, text='Failure -- Could not find db, or we has a importation error')
 			self.failureT2.grid()
+		self.scrollb.grid(sticky = 'ew')
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'Build successfull...')
 	def buildRunners(self):
 		print('['+'\033[31m'+'ProjectRunner'+'\033[0m'+']'+'start of runner GUI')
 
-
+	def scrollFunction(self,event):
+		"""
+		This is apart of build scrolling
+		"""
+		#You need to set a max size for frameTwo. Otherwise, it will grow as needed --t
+		self.canvas.configure(scrollregion=self.canvas.bbox("all"),width=300,height=200)
 
 class data:
 	def __init__(self):
@@ -185,17 +220,17 @@ class data:
 				self.total = self.total+int(s)
 				self.advNum = int(self.advNum) + int(self.total)
 				self.totalNum = int(self.totalNum) + 1
-			#print(self.advNum)
-			#print(self.totalNum)
+			#print(self.advNum) -t
+			#print(self.totalNum) -t
 			self.raceAdv = int(self.advNum) / int(self.totalNum)
-			#print(self.raceAdv)
+			#print(self.raceAdv) -t
 			self.mins = str(int(self.raceAdv) / 60)
 			self.mins, self.undeeded = self.mins.split('.')
 			self.mins = str(self.mins)
 			self.seconds = int(int(self.mins) * 60)
 			self.seconds = int(self.raceAdv - self.seconds)
 			self.seconds = str(self.seconds)
-			#print('Race '+str(self.race+1)+': '+self.mins+':'+self.seconds)
+			#print('Race '+str(self.race+1)+': '+self.mins+':'+self.seconds) -t
 			self.time = str(self.mins)+':'+str(self.seconds)
 			dataList.insert(self.race, self.time)
 			self.race = self.race + 1
@@ -211,11 +246,11 @@ class data:
 		i = str(i)
 		for elem in data:
 			if(self.dataRow!=i):
-				self.dataRow = str(int(self.dataRow)+1) #Since we're not on the right row we're gonna add a row and repackage then try again
+				self.dataRow = str(int(self.dataRow)+1) #Since we're not on the right row we're gonna add a row and repackage then try again  -t
 				pass
 			if(self.dataRow==i):
-				self.dataRow = int(self.dataRow)+1 #we add this so it won't keep looping smh, logic could be fixed but eh it works
-				self.dataRow = str(self.dataRow) #Repackage in a string
+				self.dataRow = int(self.dataRow)+1 #we add this so it won't keep looping smh, logic could be fixed but eh it works - t
+				self.dataRow = str(self.dataRow) #Repackage in a string - t
 				for elem2 in teamData:
 
 
@@ -225,6 +260,7 @@ class data:
 						"""
 						FORMAT OUTPUT AND RETURN IT
 						"""
+						#Can we get rid of the massive ammount of lines here or nah? (i mean i built it but idk)- t
 						dbList = []
 						elemNum = 0
 						dbList.insert(elemNum, elem2[0])
