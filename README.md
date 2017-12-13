@@ -1,4 +1,6 @@
 # Project-Runner
-This is a Python Gui program designed to help Track &amp; Cross Country coaches keep track of their stats.
+This is a  program designed to help Track &amp; Cross Country coaches keep track of their stats.
 # Progress
-  Main function is built, working on the scroll bar. After that we'll have everything we need to start filling the DB with real data & starting on the indvidual pages. 
+  Server is built (most of it) the only thing that remains is cleaning up and adding SS to it. I need to add in the code for db to xml as well. 
+  Electron progress: 
+    The program can pull data from XML, it just needs to be neat and clean now... Sockets need to be built as well.
