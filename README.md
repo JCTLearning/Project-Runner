@@ -12,6 +12,11 @@ You may need to reorder things, in order for it to work. For example, some scrip
   #Libs
   import socket
   import sqlite3 as lite
+  import gpsread
 ```
 
 # Electron libs
+	``` javascript
+  // Electron & NPM Libraries
+  
+ ```
