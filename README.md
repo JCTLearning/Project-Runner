@@ -15,8 +15,10 @@ You may need to reorder things, in order for it to work. For example, some scrip
   import gpsread
 ```
 
-# Electron libs
-	``` javascript
-  // Electron & NPM Libraries
-  
- ```
+# NodeJS
+  ``` javascript
+  //NPM Packages
+  * Latest version of Electron(1.8.1)
+  * Latest version of Mkdirp
+```
+
