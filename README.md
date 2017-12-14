@@ -7,8 +7,11 @@ This is a  program designed to help Track &amp; Cross Country coaches keep track
 # Code setup
 You may need to reorder things, in order for it to work. For example, some scripts use DB folder `data` others use `Data`, note the capital. If the code requires modification, modify it. The only thing that should always be correct is the electron GUI. The server side can be handled.
 
+# Python libs
   ``` python
   #Libs
   import socket
   import sqlite3 as lite
 ```
+
+# Electron libs
