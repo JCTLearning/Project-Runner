@@ -1,4 +1,5 @@
 import socket
+from gspread import *
 class networking:
     def __init__(self):
         try:
@@ -69,14 +70,21 @@ class mainProg:
     def __init__(self):
         print('[ -- Check Start Up Status --]')
         self.networkingC = networking()
-
     def mainProg(self):
         print('[-- Project Runner --]')
         print('[-- Server --]')
-
-
+        authorizationC = authorization()
+        if(authorizationC.checkAuth()=='True'):
+            pass
+        if(authorizationCcheckAuth.checkAuth()=='False'):
+            #quit program/ pass the error and start a offline section
+        #Upon start i think we need to check if Gspead is working
         self.networkingC.mainNetworking()
+class authorization:
+    def __init__(self):
+        print('[-- Starting Gspread Authorization --]')
 
-
+    def checkAuth(self):
+        self.gc = gspread.autho
 mainProgC = mainProg()
 mainProgC.mainProg()
