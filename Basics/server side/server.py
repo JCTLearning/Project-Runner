@@ -1,5 +1,5 @@
 import socket
-from gspread import *
+import gspread 
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 import xml.etree.cElementTree as Et
@@ -72,9 +72,8 @@ class procData:
         """
         self.conn = lite.connect(self.dbUrl) #Creates the file
         self.c = self.conn.cursor()
-
-		self.c.execute("CREATE TABLE Identification(runnerID TEXT, fname TEXT, lname TEXT)")
-		self.c.execute("CREATE TABLE Stats(meter800 TEXT, mile TEXT, 2mile TEXT, 500meter TEXT, meters3000 TEXT, meters1500 TEXT, meters1600 TEXT)")
+        self.c.execute("CREATE TABLE Identification(runnerID TEXT, fname TEXT, lname TEXT)")
+        self.c.execute("CREATE TABLE Stats(meter800 TEXT, mile TEXT, 2mile TEXT, 500meter TEXT, meters3000 TEXT, meters1500 TEXT, meters1600 TEXT)")
         """
         Pull the Data from SS -- gonna use a loop and put data in a list
         """
@@ -92,13 +91,13 @@ class procData:
             """
 
             self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
-            Et.SubElement(self.runner, "Name", name = str(str(self.runnerData[1])+' '+str(self.runnerData[2]))))
-            Et.SubElement(self.runner, "Training Data",  meter800 = self.runnerData[3], mile = self.runnerData[4], 2mile = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
+            Et.SubElement(self.runner, "Name", name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])))
+            Et.SubElement(self.runner, "Training Data",  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
             """
             Insert into Db
             """
             self.c.execute("insert into Identification (runnerID, fname, lname) values (?, ?, ?)",(self.runnerData[0], self.runnerData[1], self.runnerData[2]))
-            self.c.execute("insert into Stats (meter800, mile, 2mile, 500meter, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
+            self.c.execute("insert into Stats (meter800, mile, mile2, 500meter, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
             self.conn.commit()
             self.currentRow = self.currentRow + 1
             self.rowNum = self.rowNum + 1
