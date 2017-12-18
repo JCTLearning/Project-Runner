@@ -33,17 +33,38 @@ You may need to reorder things, in order for it to work. For example, some scrip
   The problem is sort() does "abc order" meaning 123 will be placed after 1000. I doubt anyone will have a 1000 second mile, but it becomes a problem once we get into the 10 min and 20 min range. How else can we order this and hold both the VDOT num and the Mile...
   ``` python
   #Ignore incorrect syntax, it is just logic
-  calcList = []
-  mile = runnerMileNum #like 654 or 700
-  vdotList = vdot.getMileList() #List Item will look like ('runnernum', 'vdot')
-  for nums in vdotlist:
-    vMile = int(nums[0])
-    vdotIdent = int(nums[1])
-    calc = vMile - mile #Make sure we convert this to positive
-    compiledCal = str(calc)+vdotIdent
-    calcList.insert(whateverLoopNumWeAreOn, compiledCal)
-  #Once loop is done
-  calcList = sorted(calcList, key=lambda : [tup: tup[1], int] ) #I have no clue if this will work. We need to sort it by int
-  vDot = calcList[0]
-  return(vDot)
+  db = [('111', '2'), ('334', '1')] # Our vdot list
+  Vmiles = '156' # User miles
+  output = []
+  x = 0
+  for miles in db:
+	  print(miles)
+	  list = []
+	  """
+	  x is the math
+	  """
+	  x = int(Vmiles) - int(miles[0])
+	  x = str(x)
+	  x = x.replace('-', '')
+  	print(x)
+	  x = int(x)
+	  list.insert(0, x)
+	  list.insert(1, miles[1])
+	  output.insert(x, list)
+	  x = x + 1
+  print(output)
+  sortedOutput = sorted(output, key = lambda tup: tup[0])
+  print(sortedOutput)
+  vdot = sortedOutput[0]
+  print(vdot[1])
+  ## -- OutPut -- ##
+  """
+  ('111', '2')
+  45
+  ('334', '1')
+  178
+  [[45, '2'], [178, '1']]
+  [[45, '2'], [178, '1']]
+  2
+  """
   ```
