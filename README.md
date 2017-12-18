@@ -35,14 +35,15 @@ You may need to reorder things, in order for it to work. For example, some scrip
   #Ignore incorrect syntax, it is just logic
   calcList = []
   mile = runnerMileNum #like 654 or 700
-  vdotList = vdot.getMileList() #List Item will look like runnerNumber@vDotNum // 543@56
+  vdotList = vdot.getMileList() #List Item will look like ('runnernum', 'vdot')
   for nums in vdotlist:
-    vMile, vdotIdent = nums.split('@')
+    vMile = int(nums[0])
+    vdotIdent = int(nums[1])
     calc = vMile - mile #Make sure we convert this to positive
     compiledCal = str(calc)+vdotIdent
     calcList.insert(whateverLoopNumWeAreOn, compiledCal)
   #Once loop is done
-  calcList.sort()
+  calcList = sorted(calcList, key=lambda : [tup: tup[1], int] ) #I have no clue if this will work. We need to sort it by int
   vDot = calcList[0]
   return(vDot)
   ```
