@@ -30,7 +30,8 @@ You may need to reorder things, in order for it to work. For example, some scrip
 ```
 
 # Vdot Logic
-  The problem is sort() does "abc order" meaning 123 will be placed after 1000. I doubt anyone will have a 1000 second mile, but it becomes a problem once we get into the 10 min and 20 min range. How else can we order this and hold both the VDOT num and the Mile...
+  ~~The problem is sort() does "abc order" meaning 123 will be placed after 1000. I doubt anyone will have a 1000 second mile, but it becomes a problem once we get into the 10 min and 20 min range. How else can we order this and hold both the VDOT num and the Mile...~~
+  The Problem was solved with the code below. 
   ``` python
   #Ignore incorrect syntax, it is just logic
   db = [('111', '2'), ('334', '1')] # Our vdot list
