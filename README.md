@@ -33,7 +33,7 @@ You may need to reorder things, in order for it to work. For example, some scrip
   #Ignore incorrect syntax, it is just logic
   calcList = []
   mile = runnerMileNum #like 654 or 700
-  vdotList = vdot.getMileList()
+  vdotList = vdot.getMileList() #List Item will look like runnerNumber@vDotNum // 543@56
   for nums in vdotlist:
     vMile, vdotIdent = nums.split('@')
     calc = vMile - mile #Make sure we convert this to positive
