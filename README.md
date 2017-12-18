@@ -1,17 +1,19 @@
 # Project-Runner
 This is a  program designed to help Track &amp; Cross Country coaches keep track of their stats.
 # Progress
-  Server is built (most of it) the only thing that remains is cleaning up and fixing authorization via JSON file
-  We're looking to using python for the back end of the client side, and electron for the front using a new library we found online, example [here](https://github.com/fyears/electron-python-example/)
-  If we do that, XML client side will be easier, and we'll be able to save copies of SS offline. 
-  What I would like todo is reorder the GITHUB page, and get rid of any .py files we're not using. We'll prolly end up just creating a new version.
-  As for the GUI, by january, I want to be able to import SS, port them to xml and display their data neatly in the gui. After that is done (this is optional) but we need a way to sign in. Maybe here we can use a sql section for logins, or perhaps we can use google to handle auth...
+  Server is ready to go for login *and maybe ss data haven't fully tested it*. The client is *almost* done logic wise, should be good to go by tomorrow. Hopefully everything will be good to roll on friday. 
+  Figured out the concept for vdot, check it out below "Node Js Packages"
 # Code setup
 You may need to reorder things, in order for it to work. For example, some scripts use DB folder `data` others use `Data`, note the capital. If the code requires modification, modify it. The only thing that should always be correct is the electron GUI. The server side can be handled.
 
+# Server
+  The server is to take input from the client via a socket on port 29317. Usually in the form of `command$#$user:data@#@_args`. I'm keeping all the data in one string because it's easier to build, and if a fault occurs you don't get bits and pieces of return data.
+# Client
+  The back end *built in python* is a simple code block designed to take input, proc, and return it. 
 # Python libs
   ``` python
   #Libs
+  import sys
   import socket
   import sqlite3 as lite
   import gspread
@@ -26,3 +28,19 @@ You may need to reorder things, in order for it to work. For example, some scrip
   * Latest version of Mkdirp
 ```
 
+# Vdot Logic
+  ``` python
+  #Ignore incorrect syntax, it is just logic
+  calcList = []
+  mile = runnerMileNum #like 654 or 700
+  vdotList = vdot.getMileList()
+  for nums in vdotlist:
+    vMile, vdotIdent = nums.split('@')
+    calc = vMile - mile #Make sure we convert this to positive
+    compiledCal = str(calc)+vdotIdent
+    calcList.insert(whateverLoopNumWeAreOn, compiledCal)
+  #Once loop is done
+  calcList.sort()
+  vDot = calcList[0]
+  return(vDot)
+  ```
