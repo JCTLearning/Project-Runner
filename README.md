@@ -69,7 +69,7 @@ You may need to reorder things, in order for it to work. For example, some scrip
         	break
 	Vmiles = '224' # User mile speed
 	output = []
-	x = 0
+	y = 0
 	for miles in db:
 		print(miles)
 		list = []
@@ -84,7 +84,7 @@ You may need to reorder things, in order for it to work. For example, some scrip
 		list.insert(0, x)
 		list.insert(1, miles[1])
 		output.insert(x, list)
-		x = x + 1
+		y = x + 1
 		#print(output)
 	sortedOutput = sorted(output, key = lambda tup: tup[0])
 	#print(sortedOutput)
