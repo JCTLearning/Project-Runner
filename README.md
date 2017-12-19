@@ -34,38 +34,66 @@ You may need to reorder things, in order for it to work. For example, some scrip
   The Problem was solved with the code below. 
   ``` python
   #Ignore incorrect syntax, it is just logic
-  db = [('111', '2'), ('334', '1')] # Our vdot list
-  Vmiles = '156' # User miles
-  output = []
-  x = 0
-  for miles in db:
-	  print(miles)
-	  list = []
-	  """
-	  x is the math
-	  """
-	  x = int(Vmiles) - int(miles[0])
-	  x = str(x)
-	  x = x.replace('-', '')
-  	print(x)
-	  x = int(x)
-	  list.insert(0, x)
-	  list.insert(1, miles[1])
-	  output.insert(x, list)
-	  x = x + 1
-  print(output)
-  sortedOutput = sorted(output, key = lambda tup: tup[0])
-  print(sortedOutput)
-  vdot = sortedOutput[0]
-  print(vdot[1])
+ 	import gspread
+	from oauth2client.service_account import ServiceAccountCredentials
+
+	scope = ['https://spreadsheets.google.com/feeds']
+
+	credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+
+	gc = gspread.authorize(credentials)
+	sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE' # the example sheet king gave
+	wks = gc.open_by_key(sheet)
+	worksheet = wks.worksheet("VDOT")
+	db = []
+	vdotNum = 85 # vdot starts on 85 and ends at 30
+	loopNum = 0
+	for items in worksheet.col_values(4): # the miles column, we can switch this out depending on the data, kek.
+    	if(items):
+        	if(items=='Mile'): # gets rid of row one -- mile
+            	pass
+        	else:
+            	#print(items) it's just cumbersome.
+            	"""
+            	convert items into Sec
+	    		"""
+            	mins, sec = items.split(':')
+            	x = int(int(mins)*60) #mins to sec
+            	items = int(x) + int(sec) # recompile
+            	listV = []
+            	listV.insert(0, items)
+            	listV.insert(1, vdotNum)
+            	db.insert(loopNum, listV) #make it a tup
+            	vdotNum = vdotNum - 1
+            	loopNum = loopNum + 1
+    	else:
+        	break
+	Vmiles = '224' # User mile speed
+	output = []
+	x = 0
+	for miles in db:
+		print(miles)
+		list = []
+		"""
+		x is the math
+		"""
+		x = int(Vmiles) - int(miles[0])
+		x = str(x)
+		x = x.replace('-', '')
+		print(x)
+		x = int(x)
+		list.insert(0, x)
+		list.insert(1, miles[1])
+		output.insert(x, list)
+		x = x + 1
+		#print(output)
+	sortedOutput = sorted(output, key = lambda tup: tup[0])
+	#print(sortedOutput)
+	vdot = sortedOutput[0]
+	print(vdot[1])
+
   ## -- OutPut -- ##
   """
-  ('111', '2')
-  45
-  ('334', '1')
-  178
-  [[45, '2'], [178, '1']]
-  [[45, '2'], [178, '1']]
-  2
+	83 # The VDOT num for the runner according to the miles given.
   """
   ```
