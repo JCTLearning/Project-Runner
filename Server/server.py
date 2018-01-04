@@ -4,15 +4,28 @@ Gspread & oauth command/data are commented out for the sake of non internet test
 
 import sqlite3 as lite
 import socket
-#import gspread
+import datetime
+try:
+    import gspread
+except:
+    x = datetime.datetime.time(datetime.datetime.now())
+    x = str(x)[:8]
+    print(x + '[-- PLEASE PY -M PIP INSTALL GSPREAD --]')
 import json
-#from oauth2client.service_account import ServiceAccountCredentials
+try:
+    from oauth2client.service_account import ServiceAccountCredentials
+except:
+    x = datetime.datetime.time(datetime.datetime.now())
+    x = str(x)[:8]
+    print(x + '[-- PLEASE PY -M PIP INSTALL OAUTH --]')
 import xml.etree.cElementTree as Et
+import sys
+
 """
 TODO:
 ##Add encryption to the sockets
 ##Add xml math
-
+"""
 
 class networking:
     def __init__(self):
@@ -21,28 +34,44 @@ class networking:
             self.s.bind(('127.0.0.1', 80))
             self.s.listen(7)
             self.s.close()
-            print('[-- Socket estabished --]')
-            print('[-- Socket Library is ready for use: Starting Program--]')
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x+'[-- Socket estabished --]')
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x+'[-- Socket Library is ready for use: Starting Program--]')
         except:
-            print('Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x+ 'Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
             exit()
     def mainNetworking(self):
         host = '127.0.0.1'
         port = 29317
-        print('[-- Starting server on IP: '+host+':'+str(port)+' --]')
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Starting server on IP: '+host+':'+str(port)+' --]')
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.bind((host, port))
-        print('[-- Server Started on IP: '+host+':'+str(port)+' --]')
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Server Started on IP: '+host+':'+str(port)+' --]')
         self.s.listen(10)
         while True:
             cs , addr = self.s.accept()
-            print(str(cs)+' '+str(addr))
+            self.ip = addr
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+
+            print(x +'[-- Connection from: '+str(cs)+' '+str(addr))
             self.data = cs.recv(1024).decode()
             if not self.data:
-                print('[-- Data given was empty --]')
+                x = datetime.datetime.time(datetime.datetime.now())
+                x = str(x)[:8]
+                print(x+ '[-- Data given was empty --]')
             if self.data:
                 procDataC = procData()
-                self.result = procDataC.proccessDbData(self.data)
+                self.result = procDataC.proccessDbData(self.data, self.ip)
                 self.result = str(self.result)
                 #print(self.result) #Maybe return this data to client?
                 cs.send(self.result.encode())
@@ -52,8 +81,10 @@ class procData:
         """
         Here is where all the data processing and handling will occur
         """
-        print('[-- Proc Data Class Called --]')
-    def proccessDbData(self, sData):
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Proc Data Class Called --]')
+    def proccessDbData(self, sData, ip):
         """
         sData is the socket data sent by the user
         So the data recived would look like
@@ -86,12 +117,15 @@ class procData:
             """
             loginData = self.c.fetchall()
             #print(loginData)
-            print('check login -- ')
+            #print('check login -- ')
             for elem in loginData:
 
                 if(elem[0]==username):
                     if(elem[1]==passW):
-                        return(True)
+                        x = datetime.datetime.time(datetime.datetime.now())
+                        x = str(x)[:8]
+                        print(x + '[--User at: '+str(ip)+' Succeeded to login --]')
+                        return(0)
                         break #Just in case lol
                     if(elem[1]!=passW):
                         #eturn(False)
@@ -99,7 +133,10 @@ class procData:
                 if(elem[0]!=username):
                     #return False
                     pass
-            return False #If the for loop doesnt break due to a return, the username and pass wasn't there
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- User at: '+str(ip)+' Failed to login --]')
+            return 1 #If the for loop doesnt break due to a return, the username and pass wasn't there
         if(self.command=='0xC0S'):
             #print(self.commandData)
             username, passW = self.data.split(':')
@@ -134,7 +171,34 @@ class procData:
         Here we would take the SS url and unpack the data and toss it into a db, then toss it into a xml docs
         After that we would return the xml url
         """
-        self.userSS = gs.open_by_url(url)
+        """
+        First we need to make the dir :P
+        """
+        try:
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            os.makedirs(pathToDb)
+            print(x + '[-- Created path for '+pathToDb+' --]')
+        except:
+            print(x + '[-- Path was already made for user, continuing --]')
+        try:
+            self.authJson  = 'authfile.json' # Make sure that is installed.
+            scope = ['https://spreadsheets.google.com/feeds']
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(self.authJson, scope)
+        except:
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- OAUTH is not installed smh install it already. --]')
+            return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
+        try:
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x+ '[-- Trying to authorize our creds --]')
+            gc = gspread.authorize(credentials)
+            self.userSS = gs.open_by_url(url)
+        except:
+            print(x + '[-- Cred auth failed, check google and see if our api is still up? (Or check the network) --]')
+            return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
         self.dbUrl = str(pathToDb)+'/'+fileName+'.db'
         """
         Open the DB -- And make our tables
@@ -160,8 +224,7 @@ class procData:
             """
 
             self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
-            Et.SubElement(self.runner, "Name", name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])))
-            Et.SubElement(self.runner, "Training Data",  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
+            Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])),  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
             """
             Insert into Db
             """
@@ -182,34 +245,54 @@ class procData:
 
 
         #Before returning it, I would make it a url for the client to grab, maybe for now we just point at local host, but idk.
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Finished up the xm & db process for user' + pathToDb + ' --]')
         return self.xmlUrl
 class mainProg:
     def __init__(self):
-        print('[ -- Check Start Up Status --]')
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[ -- Check Start Up Status --]')
         self.networkingC = networking()
     def mainProg(self):
-        print('[-- Project Runner --]')
-        print('[-- Server --]')
-        """ NO INTERNET -- CAN'T RUN
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Project Runner --]')
+        print(x + '[-- Server --]')
+
         authorizationC = authorization()
         if(authorizationC.checkAuth()=='True'):
             pass
         if(authorizationC.checkAuth()=='False'):
             #quit program/ pass the error and start a offline section
-            print('[-- Could not connect to Google Sheets, please check the connection of the server... --]')
-        """
-
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- Could not connect to Google Sheets, please check the connection of the server... --]')
+            pass
+            #We pass here because this will always be false when I dont have internet :feelsbadman:
         self.networkingC.mainNetworking()
 class authorization:
     def __init__(self):
-        print('[-- Starting Gspread Authorization --]')
-        """
-        self.authJson  = 'authfile.json'
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(self.authJson, scope)
-        """
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Auth class called --]')
     def checkAuth(self):
-        global gc
-        gc = gspread.authorize(credentials)
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Starting Gspread Authorization --]')
+        try:
+            self.authJson  = 'authfile.json'
+            scope = ['https://spreadsheets.google.com/feeds']
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(self.authJson, scope)
+
+            global gc
+            gc = gspread.authorize(credentials)
+        except:
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- Error: NameError -- OAUTH ISNT installed. If error isnt NameError it is: '+str(sys.exc_info()[0])+' Passing --]')
+
         try:
             gc.open_by_url('https://docs.google.com/testspreadsheet')
             #Add a close command here...
