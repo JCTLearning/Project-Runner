@@ -25,7 +25,7 @@ This is a  program designed to help Track &amp; Cross Country coaches keep track
 
 ```
 
-#Electron
+# Electron
   Lets talk about electron shall we?
   Electron displays the data like a webpage, with HTML CSS and JS. The situation is computing lots of data with JS is a lil rough, so what we did was let python handle the data calculation and pass the calculated data back to electron.
   We do this by abusing the python `sys.stdin.readline()` command and the js `exec("py -i pythonClient.py")` command.
