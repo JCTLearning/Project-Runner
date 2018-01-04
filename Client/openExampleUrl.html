@@ -1,0 +1,13 @@
+<!-- openExampleUrl.html Meant to just have a piece of js code that opens up the user's main browser and send them to the example spreadsheet page, then sends the electron program to the previous page -->
+
+
+<script>
+  //First open the url
+  var exampleSS = 'https://docs.google.com/xxxx';
+  const {shell} = require('electron');
+  const {ipcRenderer} = require('electron');
+  shell.openExternal(exampleSS);
+  //Then send the program back to previous page
+  var emptyVar = null;
+  ipcRenderer.send('buildDb', emptyVar);
+</script>
