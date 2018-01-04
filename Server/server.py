@@ -31,7 +31,7 @@ class networking:
     def __init__(self):
         try:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.bind(('127.0.0.1', 80))
+            self.s.bind(('10.127.2.25', 80))
             self.s.listen(7)
             self.s.close()
             x = datetime.datetime.time(datetime.datetime.now())
@@ -46,7 +46,7 @@ class networking:
             print(x+ 'Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
             exit()
     def mainNetworking(self):
-        host = '127.0.0.1'
+        host = '10.127.2.25'
         port = 29317
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
