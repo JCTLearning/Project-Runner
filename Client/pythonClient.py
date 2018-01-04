@@ -4,6 +4,7 @@ import sys
 import json
 import os
 import glob
+#0xL0S$#$auth_@#@_Username:Password -- login
 class networking:
     def __init__(self):
         pass
@@ -14,7 +15,7 @@ class networking:
             self.s.close()
             self.onlineNet = True
             try:
-                self.s.connect(('127.0.0.1', 29317)) #The server ip, for now its local host.
+                self.s.connect(('10.127.2.25', 29317)) #The server ip, for now its local host.
                 self.s.close()
                 self.serverConn = True
             except:
@@ -28,34 +29,43 @@ class networking:
         return self.connList
     def getSpreadSheetXmlUrl(self, xmlUrl, userData):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect(('127.0.0.1', 29317)) #This needs to change to a static ip when we start hosting
+        self.s.connect(('10.127.2.25', 29317)) #This needs to change to a static ip when we start hosting
         teamName = userData # just a lil rebrand
         with open(".userData.json", "r") as jsonFile:
             jsonData = json.load(jsonFile)
             user = str(jsonData["username"])
-
-        self.data = '0xL08$#$'+user+':'+teamName+'_@#@_'+xmlUrl.encode()   #https://docs.google.com/spreadsheetExampleUrl'.encode()
+        self.command = '0xL08$#$'+user+':'+teamName+'_@#@_'+xmlUrl.encode()
+        self.command = self.command.encode()
+        self.data = command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
 
         self.s.sendall(self.data)
         rUrl = self.s.recv(1024).decode()
         return rUrl
     def loginSql(self, data):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect(('127.0.0.1', 29317))
-        self.dataString = '0xL0S$#$auth_@#@_'+data.encode()
+        #print(data)
+        self.s.connect(('10.127.2.25', 29317))
+        self.dataString = '0xL0S$#$'+data
+        self.dataString = self.dataString.encode()
         self.s.sendall(self.dataString)
+        print(self.dataString)
         self.result = self.s.recv(1024).decode()
         if(self.result == 'loginTrue'):
             u, p = data.split(':')
             #This is during the result section so ill write the username file here.
+            """
+            What is it? Any where with self.data, or anything that is sent to the server. data.encode(data) < - data = the var
+
+            """
             with open(".userData.json", "w") as jsonFile: #with it set to write, the username will be rewritten every time they login.
                 json.dump({'username': u}, jsonFile, indent = 4)
 
         return self.result
     def createAcctSql(self, data):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect(('127.0.0.1', 29317))
-        self.dataString = '0xC0S$#$createAcct_@#@_'+data.encode()
+        self.s.connect(('10.127.2.25', 29317))
+        self.data1 = '0xC0S$#$createAcct_@#@_'+data.encode()
+        self.dataString = data1.encode()
         self.s.sendall(self.dataString)
         self.result = self.s.recv(1024).decode()
         if(str(self.result)=='True'):
