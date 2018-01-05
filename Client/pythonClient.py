@@ -15,7 +15,7 @@ class networking:
             self.s.close()
             self.onlineNet = True
             try:
-                self.s.connect(('10.127.2.25', 29317)) #The server ip, for now its local host.
+                self.s.connect(('10.127.3.13', 29317)) #The server ip, for now its local host.
                 self.s.close()
                 self.serverConn = True
             except:
@@ -29,14 +29,14 @@ class networking:
         return self.connList
     def getSpreadSheetXmlUrl(self, xmlUrl, userData):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect(('10.127.2.25', 29317)) #This needs to change to a static ip when we start hosting
+        self.s.connect(('10.127.3.13', 29317)) #This needs to change to a static ip when we start hosting
         teamName = userData # just a lil rebrand
         with open(".userData.json", "r") as jsonFile:
             jsonData = json.load(jsonFile)
             user = str(jsonData["username"])
-        self.command = '0xL08$#$'+user+':'+teamName+'_@#@_'+xmlUrl.encode()
+        self.command = '0xL08$#$'+user+':'+teamName+'_@#@_'+xmlUrl
         self.command = self.command.encode()
-        self.data = command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
+        self.data = self.command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
 
         self.s.sendall(self.data)
         rUrl = self.s.recv(1024).decode()
@@ -44,7 +44,7 @@ class networking:
     def loginSql(self, data):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #print(data)
-        self.s.connect(('10.127.2.25', 29317))
+        self.s.connect(('10.127.3.13', 29317))
         self.dataString = '0xL0S$#$'+data
         self.dataString = self.dataString.encode()
         self.s.sendall(self.dataString)
@@ -63,7 +63,7 @@ class networking:
         return self.result
     def createAcctSql(self, data):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect(('10.127.2.25', 29317))
+        self.s.connect(('10.127.3.13', 29317))
         self.data1 = '0xC0S$#$createAcct_@#@_'+data.encode()
         self.dataString = data1.encode()
         self.s.sendall(self.dataString)
@@ -173,7 +173,7 @@ class main:
             #print(self.commandArgs) we comment this out because anythin printed is returned to the client
             #Check for exsisting user:
             #Login
-            result = networkingC.loginSql(self.commandArgs)
+            result = networkingC.loginSql('_@#@_'+self.commandArgs)
 
             #dump the username to a file here
             return result # loginTrue // loginFalse only two options
