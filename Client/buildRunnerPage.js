@@ -25,7 +25,7 @@ function main(xmlSheet){
   var totalRunners = runnerData.length;
 
   while (loopNum != totalRunners) {
-    console.log(runnerData[loopNum]);
+    //console.log(runnerData[loopNum]); --  For testing
     x = runnerData[loopNum];
     runnerName = x.getAttribute("name");
     runnerId = x.getAttribute("id")
@@ -42,6 +42,14 @@ function main(xmlSheet){
     loopNum = loopNum +  1
 
   }
+  var backButton = document.createElement('button');
+  backButton.id = 'backButtonId'
+  backButton.innerHTML = 'Back'
+  document.body.appendChild(backButton);
+  backButton.addEventListener('click', function(x, emptyVar = null) {
+    ipcRenderer.send('loginSuccess'); //truth be told id why im just taking up ram space here, guess I dont wanna create a whole entire function :shrug:
+    //Also yes i know "login success" isnt a descriptive var, but im not creating two ipcrender funcs that do the same bloody thing.
+  });
 
 
   }

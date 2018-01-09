@@ -16,7 +16,35 @@ function getSSData() {
     }
   });
   child2.stdout.on('data', function(data) {
-    console.log(data)
+    //console.log(data)
+    //The XML is done Here
+    //Add the check online button
+    var checkOnline = document.createElement("button");
+    checkOnline.innerHTML = "Check Online"
+
+    document.body.appendChild(checkOnline);
+
+    var addOne =  document.createElement("button");
+    addOne.innerHTML = "Create One"
+    document.body.appendChild(addOne);
+    checkOnline.addEventListener("click", checkOnlineF());
+    addOne.addEventListener("click", addDb);
+
+    //Add the logout button
+    var logoutButton = document.createElement("button");
+    logoutButton.innerHTML = 'Logout'
+    logoutButton.id = 'logoutButtonId'
+    document.body.appendChild(logoutButton);
+    //Bind the logout button
+
+    logoutButton.addEventListener("click", function(s, xml = null) {
+      //i just copied this part ignore the random vars kek
+      ipcRenderer.send('logout');
+    });
+    //Logout button done -- Lets clean up HTML
+    document.getElementById('headerMessage').innerHTML = "Here are your on disk athlete databases "
+    document.getElementById('details').innerHTML = "If you'd like to check online for more / update your current databases, please click the 'Check Online' button. If you'd like to add a athlete database, click the 'Create One' button! If you'd like to open a specific database, click on its corrisponding name. If it is not there, try updating! "
+    //Fill the new buttons of xml sheet
     /*
     Here comes the problem here, we need to create a list of buttons, yet we dont have a var for each
     */
@@ -67,7 +95,7 @@ function getSSData() {
 
 }
 function checkOnlineF(evt) {
-  console.log("Checking Online");
+  ipcRenderer.send('checkOnline');
 }
 
 function addDb() {

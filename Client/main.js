@@ -40,6 +40,15 @@ const createLogin = () => {
     //end of login funct
 }
 // Login
+ipcMain.on('logout', (event) => {
+  mainWindow.loadURL(require('url').format({
+    pathname: path.join(__dirname, 'login.html'), //Our main login Page
+    protocol: 'file:',
+    slashes: true
+  }))
+
+});
+//Build the main menu -- check.js
 ipcMain.on('loginSuccess', (event, userData) => {
   mainWindow.loadURL(require('url').format({
     pathname: path.join(__dirname, 'handleDb.html'), //Our main html Page
@@ -58,9 +67,18 @@ ipcMain.on('buildDb', (event, emptyVar) => {
   }))
 
 });
+/**
+ipcMain.on('checkOnline', (event) => {
+  mainWindow.loadURL(require('url').format({
+    pathname: path.join(__dirname, 'checkOnline.html'), //Our main check Page
+    protocol: 'file:',
+    slashes: true
+  }))
+
+});**/
 // Display a data base
 ipcMain.on('buildRunnerPage', (event, xmlSheets) => {
-  //console.log(xmlSheet); -- Confirmimng if the var is full
+  //console.log(xmlSheet);// -- Confirmimng if the var is full
   xmlSheet = xmlSheets //Putting it in the global var
   mainWindow.loadURL(require('url').format({
     pathname: path.join(__dirname, 'buildRunnerPage.html'), //Our main html Page

@@ -23,6 +23,16 @@ function buildSpreadsheet() {
 
 /* Lets bind the main button :P */
 document.addEventListener('DOMContentLoaded', function() {
+  var backButton = document.createElement("button");
+  backButton.innerHTML = 'Back'
+  backButton.id = 'backButtonId'
+  document.body.appendChild(backButton);
+  //Bind the back button
+
+  backButton.addEventListener("click", function(s, xml = null) {
+    //console.log('Bounded');// -- making sure this function is running.
+    ipcRenderer.send('loginSuccess');
+  });
   document.getElementById("spreadsheetButton").addEventListener("click", buildSpreadsheet);
 
 })
