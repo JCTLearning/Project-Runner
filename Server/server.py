@@ -1,7 +1,3 @@
-"""
-Gspread & oauth command/data are commented out for the sake of non internet testing
-"""
-
 import sqlite3 as lite
 import socket
 import datetime
@@ -25,13 +21,15 @@ import sys
 TODO:
 ##Add encryption to the sockets
 ##Add xml math
+NOTE:
+##Make sure you change the host IP depending on the server youre hosting on
 """
 
 class networking:
     def __init__(self):
         try:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.bind(('10.127.3.13', 80))
+            self.s.bind(('127.0.0.1', 80))
             self.s.listen(7)
             self.s.close()
             x = datetime.datetime.time(datetime.datetime.now())
@@ -46,7 +44,7 @@ class networking:
             print(x+ 'Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
             exit()
     def mainNetworking(self):
-        host = '10.127.3.13'
+        host = '127.0.0.1'
         port = 29317
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
@@ -92,7 +90,7 @@ class procData:
         for example
         0xL08$#$john18:jcTeam01_@#@_https://docs.google.com/spreadsheetExampleUrl
         """
-        print(sData)
+        #print(sData) for when _@#@_ is tossing errors. 
         self.commandData, self.data = sData.split('_@#@_')
         self.command, self.commandArg = self.commandData.split('$#$')
         if(self.command=='0xL08'):
@@ -224,6 +222,7 @@ class procData:
             """
 
             self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
+            #So we decided it was easier just to put all of the data in node for JS. - T
             Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])),  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
             """
             Insert into Db
