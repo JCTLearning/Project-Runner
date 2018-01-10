@@ -11,12 +11,63 @@
 
   <body>
 
-
-    <h> Login </h>
+	
+    <h>  </h>
+	<div id = "login">
     <input type="text" value="Username" id="username"/>
-    <input type="text" value="Password" id="password"/>
+    <input type="password" value="Password" id="password"/>
     <button type="button" id="loginButton"> Login </button>
     <p id='erroCont'></p>
+	</div>
+	<div id = "logo">
+	
+	</div>
+	<div id = "footer">
+	<p>This is Project Runner's Current Footer</p>
+	</div>
+	<style>
+	input[type=button] {
+		background-color: black;
+		border: none;
+		color: white;
+		padding: 6px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+	}
+	input[type=button]:hover, form a:hover {
+		background: #007cc2;
+		cursor: pointer;
+	}
+	#footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1 rem;
+	background-color: #1a1a1a;
+	text-align: center;
+	
+	}
+	#login {
+	width:20%;
+	background-color: #bdd2ff;
+	border: 1px solid white;
+	margin: 50px auto 0;
+	padding: 1em;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	}
+	input[type=text], input[type=password] {
+	margin: auto
+	display: block;
+	margin: 0 0 1em 0;
+	width: 90%;
+	border: 1px solid #818181;
+	padding: 5px
+	}
+	</style>
   </body>
 
 
