@@ -13,9 +13,14 @@
 
 	
     <h>  </h>
+    <div id = "linking">
+    <p><a href="insert our site here"> Register </a></p>
+    </div>
 	<div id = "login">
     <input type="text" value="Username" id="username"/>
     <input type="password" value="Password" id="password"/>
+    </div>
+    <div id = "b">
     <button type="button" id="loginButton"> Login </button>
     <p id='erroCont'></p>
 	</div>
@@ -26,27 +31,28 @@
 	<p>This is Project Runner's Current Footer</p>
 	</div>
 	<style>
-	input[type=button] {
-		background-color: black;
+    #linking {
+    position: absolute;
+    right: 453px;
+    top: 150px;
+    font-size: 12px;
+    }
+	#b {
+    	position: absolute;
+        right: 450px;
+        top: 135px;
 		border: none;
 		color: white;
-		padding: 6px;
-		text-align: center;
 		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
 	}
-	input[type=button]:hover, form a:hover {
-		background: #007cc2;
-		cursor: pointer;
-	}
+
 	#footer {
 	position: absolute;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	padding: 1 rem;
-	background-color: #1a1a1a;
+	background-color: #6e757f;
 	text-align: center;
 	
 	}
@@ -56,8 +62,8 @@
 	border: 1px solid white;
 	margin: 50px auto 0;
 	padding: 1em;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 15px;
 	}
 	input[type=text], input[type=password] {
 	margin: auto
