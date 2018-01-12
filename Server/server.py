@@ -24,12 +24,533 @@ TODO:
 NOTE:
 ##Make sure you change the host IP depending on the server youre hosting on
 """
+class vdot:
+    def __init__(self):
+        print('[-- VDOT CALLED --]')
+    def vdotMiles(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(4): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+        """
+        Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
+        """
+        conn = lite.connect('miles.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('miles.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+        """
+        runnerTime = input('Mile Time: ')
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        vdotC = vdot()
+        selfs = None
+        vdotNum = vdot.vdotMiles(selfs, runnerTime)
+        print(vdotNum)
+        print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        """
+    def vdot1500(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(2): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('1500.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('1500.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+        """
+        runnerTime = input('Mile Time: ')
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        vdotC = vdot()
+        selfs = None
+        vdotNum = vdot.vdotMiles(selfs, runnerTime)
+        print(vdotNum)
+        print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        """
+    def vdot1600(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(3): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('1600.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('1600.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects     the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+    def vdot3000M(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(3): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('3000M.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('3000M.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects     the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+
+    def vdot3200(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(6): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('3200.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('3200.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects     the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+
+
+    def vdotMileTwo(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(7): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('mileTwo.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('mileTwo.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects     the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
+
+
+    def vdot5000M(self, runnerTime):
+        x, y = runnerTime.split(':')
+        runnerTime = int(x) * 60
+        runnerTime = runnerTime + int(y)
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('authfile.json', scope)
+        gc = gspread.authorize(credentials)
+        sheet = '13UTcj1AKMIZ-cCYlKQVIxaYdr8TmOuX43HVw0l0KYmE'
+        wks = gc.open_by_key(sheet)
+        worksheet = wks.worksheet("VDOT")
+        db = []
+        vdotNum = 85
+        loopNum = 0
+        for items in worksheet.col_values(8): #4 is miles
+            if(items):
+                if(items=='Mile'): # gets rid of row one -- mile
+                    pass
+                else:
+                    #print(items)
+                    listV = []
+                    listV.insert(0, items)
+                    listV.insert(1, vdotNum)
+                    db.insert(loopNum, listV)
+                    vdotNum = vdotNum - 1
+                    loopNum = loopNum + 1
+            else:
+                break
+        Vmiles = runnerTime # User mile time
+        output = []
+        x = 0
+        for miles in db:
+            #print(miles)
+            #print('x'+miles[0])
+            x, y = miles[0].split(':')
+            mileTime = int(x)*60
+            mileTime = mileTime + int(y)
+            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            list = []
+            """
+            x is the math
+            """
+            x = int(Vmiles) - int(mileTime)
+            x = str(x)
+            x = x.replace('-', '')
+            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            x = int(x)
+            list.insert(0, x) #subtracted time
+            list.insert(1, miles[1]) #vdot
+            output.insert(x, list)
+            x = x + 1
+            """
+            Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
+            """
+        conn = lite.connect('5000m.db')
+        c = conn.cursor()
+        c.execute("create table data(vdot int, time int)")
+        for items in output:
+            #each item is now a list that contains time and vdot soooo
+            c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
+        conn.commit()
+        c.close()
+        #grab Data
+        conn = lite.connect('5000m.db')
+        c = conn.cursor()
+        c.execute('select vdot, time from data order by time asc')
+        returnSql = c.fetchall()
+
+
+        vdot = returnSql[0] #selects     the first value
+        return vdot[0] #this is the vdot for that number -- just returns the vdot number
 
 class networking:
     def __init__(self):
         try:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.bind(('127.0.0.1', 80))
+            self.s.bind(('10.3.10.17', 80))
             self.s.listen(7)
             self.s.close()
             x = datetime.datetime.time(datetime.datetime.now())
@@ -44,7 +565,7 @@ class networking:
             print(x+ 'Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
             exit()
     def mainNetworking(self):
-        host = '127.0.0.1'
+        host = '10.3.10.17'
         port = 29317
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
@@ -90,7 +611,7 @@ class procData:
         for example
         0xL08$#$john18:jcTeam01_@#@_https://docs.google.com/spreadsheetExampleUrl
         """
-        #print(sData) for when _@#@_ is tossing errors. 
+        #print(sData) for when _@#@_ is tossing errors.
         self.commandData, self.data = sData.split('_@#@_')
         self.command, self.commandArg = self.commandData.split('$#$')
         if(self.command=='0xL08'):
@@ -193,7 +714,7 @@ class procData:
             x = str(x)[:8]
             print(x+ '[-- Trying to authorize our creds --]')
             gc = gspread.authorize(credentials)
-            self.userSS = gs.open_by_url(url)
+            self.userSS = gs.open_by_key('1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4')
         except:
             print(x + '[-- Cred auth failed, check google and see if our api is still up? (Or check the network) --]')
             return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
@@ -293,7 +814,7 @@ class authorization:
             print(x + '[-- Error: NameError -- OAUTH ISNT installed. If error isnt NameError it is: '+str(sys.exc_info()[0])+' Passing --]')
 
         try:
-            gc.open_by_url('https://docs.google.com/testspreadsheet')
+            gc.open_by_key('1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4')
             #Add a close command here...
 
             return 'True'
