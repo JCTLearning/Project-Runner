@@ -545,7 +545,19 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-
+    def calcAll(self, data):
+        #Data is the google ss data -- the runners numbers etc etc etc etc etc
+        #meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9]
+        vdotC = vdot()
+        mileVdot = vdotC.vdotMiles(self.runnerData[4])
+        mile2Vdot = vdotC.vdotMileTwo(self.runnerData[5])
+        meter5000Vdot = vdotC.vdot5000M(self.runnerData[6])
+        meter3000Vdot = vdotC.vdot3000M(self.runnerData[7])
+        meter1500 = vdotC.vdot3200(self.runnerData[8])
+        meter1600 = vdotC.vdot1600(self.runnerData[9])
+        advVdot = int(mileVdot)+int(mile2Vdot)+int(meter5000Vdot)+int(meter3000Vdot)+int(meter1500)+int(meter1600)
+        advVdot = advVdot % 6 #adv
+        return advVdot
 class networking:
     def __init__(self):
         try:
@@ -566,6 +578,7 @@ class networking:
             exit()
     def mainNetworking(self):
         host = '10.3.10.17'
+
         port = 29317
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
@@ -744,6 +757,14 @@ class procData:
 
             self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
             #So we decided it was easier just to put all of the data in node for JS. - T
+            """
+            calc vdot
+            """
+            vdotC = vdot()
+            vdotC.calcAll(self.runnerData)
+            """
+            input data into xml
+            """
             Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])),  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
             """
             Insert into Db
