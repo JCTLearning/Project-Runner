@@ -17,20 +17,38 @@
     <p></p>
     </div>
 	<div id = "login">
-    <input type="text" value="Username" id="username"/>
-    <input type="password" value="Password" id="password"/>
-    </div>
-    <div id = "b">
+    <input type="text" placeholder="Username" id="username"/>
+    <input type="password" placeholder="Password" id="password"/>
+	<div id = "b">
     <button type="button" id="loginButton"> Login </button>
-    <p id='erroCont'></p>
 	</div>
+	</div>
+    <p id='erroCont'></p>
 	<div id = "logo">
 	
 	</div>
 	<div id = "footer">
-	<p><img src = "download.png" width = "20" height = "20"></p>
+	<p><img src = "footer.png" width = "20" height = "20"></p>
+	<div id = "information">
+	<a href="a" style = "font-size: 12px; color:#b5b6b7;"> About </a>
+	</div>
+	</div>
+	<div id = "copyright">
+		<p> © 2018 Project Runner, Inc. <p>
 	</div>
 	<style>
+	#copyright {
+	position: absolute;
+	bottom: 20px;
+	left: 5%;
+	color:#b5b6b7;
+	font-size: 12px;
+	}
+	#information {
+	position: absolute;
+	bottom: 20px;
+	left: 80%;
+	}
 	body {
 	background:
 	  linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
@@ -43,14 +61,6 @@
     bottom: 40%;
     font-size: 12px;
     }
-	#b {
-    	position: absolute;
-        left: 49%;
-		bottom: 43%;
-		border: none;
-		color: white;
-		text-decoration: none;
-	}
 
 	#footer {
 	position: absolute;
@@ -67,7 +77,7 @@
 	left: 40%;
 	top: 25%;
 	width:20%;
-	background-color: #c1c3c9;
+	background-color: #ff6de4;
 	border: 1px solid black;
 	margin: 50px auto 0;
 	padding: 1em;
@@ -81,6 +91,9 @@
 	width: 90%;
 	border: 1px solid #818181;
 	padding: 5px
+	}
+	#b { 
+	font-size: 12px;
 	}
 	</style>
   </body>
