@@ -4,25 +4,30 @@ import sys
 import json
 import os
 import glob
+import requests
 #0xL0S$#$auth_@#@_Username:Password -- login
 class networking:
     def __init__(self):
         pass
     def checkConn(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        """
         try:
             self.s.connect(('www.google.com'))
             self.s.close()
             self.onlineNet = True
-            try:
-                self.s.connect(('127.0.0.1', 29317)) #The server ip, for now its local host.
-                self.s.close()
-                self.serverConn = True
-            except:
-                self.serverConn = False
         except:
+            print(e)
             self.onlineNet = False
+        """
+        try:
+            self.s.connect(('127.0.0.1', 29317)) #The server ip, for now its local host.
+            self.s.close()
+            self.serverConn = True
+        except:
+            #print('sCFalse')
             self.serverConn = False
+        self.onlineNet = None #Null
         self.connList = []
         self.connList.insert(0, self.onlineNet)
         self.connList.insert(1, self.serverConn)
@@ -57,7 +62,7 @@ class networking:
             What is it? Any where with self.data, or anything that is sent to the server. data.encode(data) < - data = the var
 
             """
-            with open(".userData.json", "w") as jsonFile: #with it set to write, the username will be rewritten every time they login.
+            with open("./user/userData.json", "w") as jsonFile: #with it set to write, the username will be rewritten every time they login.
                 json.dump({'username': u}, jsonFile, indent = 4)
 
         return self.result
@@ -132,6 +137,26 @@ class networking:
                 print('0')
                 return None
         return(x)
+    def getHostedXml(self, user):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.connect(('127.0.0.1', 29317))
+        self.data = '0xG08$#$'+user+'_@#@_'+'null'
+        #print(self.data)
+        self.s.sendall(self.data.encode())
+        self.result = self.s.recv(1024).decode()
+        return(self.result)
+        #print(self.result)
+    def getHostXmlFile(self, xmlFile, user):
+        host = '127.0.0.1'
+        try:
+            serverUrl = host+'/'+user+'/'+xmlFile
+            response = requests.get(serverUrl)
+            with open('/runnerData/'+xmlFile, 'wb') as files:
+                files.write(response.content)
+                files.close()
+            return 0
+        except:
+            return 1
 
 
 class main:
@@ -159,12 +184,16 @@ class main:
                 0xL08 = load data base, via ss
                 0xL0G = login via google
                 0xL0S = login via project runner
+                0xL0B = Lists xml documents in folder
                 0xC0S = Create login via project runner
                 0xCD8 = Checks for a db folder and files on the hard disk
-                0xL0B = Lists xml documents in folder
+                0xCC0 = checks server connection
+                0xG08 = finds list of hosted xml files
+                0xGXL = finds the given xml file and downloads it
         """
         self.command, self.commandArgs = inputV.split('$#$')
         if(self.command=='0xL08'):
+
             self.creds, self.url = self.commandArgs.split('_@#@_')
             return networkingC.getSpreadSheetXmlUrl(self.url, self.creds)
         if(self.command=='0xL0G'):
@@ -186,6 +215,37 @@ class main:
         if(self.command == '0xL0B'):
             result = networkingC.listDb()
             return result
+        if(self.command == '0xCC0'):
+            result = networkingC.checkConn()
+            """
+            result V
+            self.connList.insert(0, self.onlineNet)
+            self.connList.insert(1, self.serverConn)
+            """
+            #print(result)
+            if (result[1] == False):
+                data = 1
+                return data
+            if (result[1] == True):
+                data = 0
+                return data
+        if(self.command == '0xG08'):
+            #fetch username
+            with open(".userData.json", "r") as jsonFile:
+                jsonData = json.load(jsonFile)
+                user = str(jsonData["username"])
+
+            result = networkingC.getHostedXml(user)
+            if (result == 'False'):
+                result = 0
+            return result
+        if(self.command == '0xGXL'):
+            with open(".userData.json", "r") as jsonFile:
+                jsonData = json.load(jsonFile)
+                user = str(jsonData["username"])
+            xmlSheet = self.commandArgs
+            result = networkingC.getHostXmlFile(xmlSheet, user)
+            return result
 """
 #-- Start --#
 """
@@ -193,5 +253,6 @@ electronCommand =  sys.stdin.readline()#)raw_input('sys.stdin.readline(): ')
 #pass the arg
 mainC = main()
 returnVar = mainC.checkInput(electronCommand)
+
 if(returnVar != None):
     print(returnVar) # Since the electron program is fetching what is output to the terminal, this is the easiest way to send data back

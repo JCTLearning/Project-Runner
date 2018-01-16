@@ -1,5 +1,6 @@
 //Check.js -- checks for db and if not makes one maybe.
 const {ipcRenderer} = require('electron') // we do this to send the success message to the renderer.
+const remote = require('electron').remote;
 var sys = require('sys'); //Need these for later.
 var exec = require('child_process').exec;
 
@@ -27,7 +28,7 @@ function getSSData() {
     var addOne =  document.createElement("button");
     addOne.innerHTML = "Create One"
     document.body.appendChild(addOne);
-    checkOnline.addEventListener("click", checkOnlineF());
+    checkOnline.addEventListener("click", checkOnlineF);
     addOne.addEventListener("click", addDb);
 
     //Add the logout button
@@ -80,7 +81,7 @@ function getSSData() {
           if (error.name === 'TypeError') {
             button.id = "delete" //yes yes yes we could just combine two lines, but im lazy.
             document.getElementById("delete").remove();//delete the element, so we don't get an empty button
-            console.log('Caught the undefined array var, meaning the script has listed all of the buttons');
+            //console.log('Caught the undefined array var, meaning the script has listed all of the buttons');
             break
           }
         }
@@ -94,8 +95,165 @@ function getSSData() {
   child2.stdin.write(command + '\n');
 
 }
-function checkOnlineF(evt) {
-  ipcRenderer.send('checkOnline');
+function checkOnlineF() {
+  //global.xmlList = ''
+
+  if (global.xmlList != undefined){
+    let dataHolder = ''
+    var dataVar = global.xmlList.split(','); // is now a arayy with each file.
+    var loopNum = 0;
+    var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
+    while (loopNum != arrayLength) {
+      dataHolder = dataVar[loopNum]
+      try{
+        document.getElementById(dataHolder).remove()
+      }
+      catch (error){
+        //pass
+      }
+      loopNum = loopNum + 1
+    }
+}
+
+  //just gonna build it here using the exsisting functions
+  var dataCheck = exec("py pythonClient.py ", function (error, stdout, stderr) {
+    //console.log('executed');
+    if (error !== null) {
+      console.log('exec error: ' + error); //Just to catch any errors
+    }
+  });
+
+  dataCheck.stdout.on('data', function(data) {
+
+    if (data == 1) {
+      //If we can't connect to the server
+      document.getElementById('headerMessage').innerHTML = 'We could not get a stable connection to the server'
+      document.getElementById('details').innerHTML = 'Try checking your connection, then trying again.'
+    }
+    if (data == 0) {
+      // If we connected to the server.
+      dataCheck.stdout.end()
+      //console.log("we're connected, now trying to get a list of hosted xml files.")
+      var xmlCheck = exec("py pythonClient.py ", function (error, stdout, stderr) {
+        console.log('executed');
+        if (error !== null) {
+          console.log('exec error: ' + error); //Just to catch any errors
+        }
+      });
+      //Event for data
+      xmlCheck.stdout.on('data', function(data) {
+
+        //handle list of avalible xml sheets
+        //console.log(data)
+        if (data == 0) {
+          document.getElementById('headerMessage').innerHTML = 'Oh no'
+          document.getElementById('details').innerHTML = "It seems we are not hosting any files for you! Try uploading a spreadsheet using the 'create one' button, or try again using the 'check online' button!"
+          var checkOnline = document.createElement("button");
+          checkOnline.innerHTML = "Check Online"
+
+          document.body.appendChild(checkOnline);
+
+          var addOne =  document.createElement("button");
+          addOne.innerHTML = "Create One"
+          document.body.appendChild(addOne);
+          checkOnline.addEventListener("click", checkOnlineF);
+          addOne.addEventListener("click", addDb);
+
+          //Add the logout button
+          var logoutButton = document.createElement("button");
+          logoutButton.innerHTML = 'Logout'
+          logoutButton.id = 'logoutButtonId'
+          document.body.appendChild(logoutButton);
+          //Bind the logout button
+
+          logoutButton.addEventListener("click", function(s, xml = null) {
+            //i just copied this part ignore the random vars kek
+            ipcRenderer.send('logout');
+          });
+        }
+
+        if (data != 0){
+          //Delete any pre exsisting buttons
+          global.xmlList = data
+          document.getElementById('headerMessage').innerHTML = 'Success!'
+          document.getElementById('details').innerHTML = "Here are some of your avalible databases that we are hosting. Click on one to download it!"
+
+          //When the stuff actuallu has xml docs in there
+          let dataHolder = ''
+          var dataVar = data.split(','); // is now a arayy with each file.
+          var loopNum = 0;
+          var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
+          while (loopNum != arrayLength) {
+            dataHolder = dataVar[loopNum]
+            //IF not underfined build webpage
+            if (dataHolder !== null) {
+              try{
+                var dataText = dataHolder.replace('.xml', '');
+                var button =  document.createElement("button");
+                button.innerHTML = dataText
+                button.id = dataHolder
+
+                document.body.appendChild(button);
+                /*
+                AHAHAHHAAHAHAHA THAT WAS A GUESS I DIDNT THINK DEFINING A VAR IN THE FUNCTION CALL WOULD CARRY THE DATA INTO THE FUNCTION LMAO
+                Anyways, there's a problem. No matter what button.id will = 'deleted' because its pulling the last version of button id,
+                which is the deleted one below sooooooo we need to fix that.
+                */
+                //eval("refrenceTag_" +dataHolder +"= dataHolder");
+                var x = "refrenceTag_" + dataHolder
+
+                button.addEventListener('click',  function(s, y = this.id) {
+                  // Take Y (which is the xml file) and build a new page using is
+                  console.log(y)
+                  var fetchXml = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
+                    if (error !== null) {
+                      console.log('exec error: ' + error); //Just to catch any errors
+                    }
+                  });
+                  fetchXml.stdout.on('data', function(data) {
+                    console.log(data)
+                    document.getElementById('headerMessage').innerHTML = 'Loading'
+                    document.getElementById('details').innerHTML = "Give us a few while we download your db and put it up!"
+
+                    if (data == 0) {
+                      ipcRenderer.send('loginSuccess', 'null') //Reload the page so the new docs show up
+                    }
+                    if (data != 0) {
+                      document.getElementById('headerMessage').innerHTML = 'Oh no'
+                      document.getElementById('details').innerHTML = "It seems like we couldn't connect! Try again in a few or restart the program. Do make sure you're connected to the internet!"
+
+                    }
+                  });
+                  fetchXml.stdin.write('0xGXL$#$'+y+'\n')
+
+
+
+
+
+
+
+
+                });
+              }
+              catch (error) {
+                if (error.name === 'TypeError') {
+                  button.id = "delete" //yes yes yes we could just combine two lines, but im lazy.
+                  document.getElementById("delete").remove();//delete the element, so we don't get an empty button
+                  console.log('Caught the undefined array var, meaning the script has listed all of the buttons');
+                  break
+                }
+              }
+            loopNum = loopNum + 1;
+            } //if closer
+
+          } //while closer
+
+        }
+      });
+      xmlCheck.stdin.write('0xG08$#$null'+'\n')
+    }
+  });
+  dataCheck.stdin.write('0xCC0$#$null' + '\n');
 }
 
 function addDb() {
@@ -129,7 +287,7 @@ function check() {
       var addOne =  document.createElement("button");
       addOne.innerHTML = "Create One"
       document.body.appendChild(addOne);
-      checkOnline.addEventListener("click", checkOnlineF());
+      checkOnline.addEventListener("click", checkOnlineF);
       addOne.addEventListener("click", addDb);
     }
 
