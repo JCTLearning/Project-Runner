@@ -39,9 +39,9 @@ class networking:
         with open(".userData.json", "r") as jsonFile:
             jsonData = json.load(jsonFile)
             user = str(jsonData["username"])
-        self.command = '0xL08$#$'+user+':'+teamName+'_@#@_'+xmlUrl.encode()
+        self.command = '0xL08$#$'+user+'!'+teamName+'_@#@_'+xmlUrl #0xL08$#$Username!testDb_@#@_https://docs.google.com/spreadsheets/d/1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4/edit#gid=0
         self.command = self.command.encode()
-        self.data = command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
+        self.data = self.command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
 
         self.s.sendall(self.data)
         rUrl = self.s.recv(1024).decode()
@@ -56,7 +56,7 @@ class networking:
         #print(self.dataString)
         self.result = self.s.recv(1024).decode()
         if(self.result == 'loginTrue'):
-            u, p = data.split(':')
+            u, p = data.split('!')
             #This is during the result section so ill write the username file here.
             """
             What is it? Any where with self.data, or anything that is sent to the server. data.encode(data) < - data = the var
