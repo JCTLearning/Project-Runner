@@ -641,6 +641,7 @@ class procData:
         if(self.command=='0xL0S'):
             #Login via sql, weeeeeee
             #split the var up
+            print(self.data)
             username, passW = self.data.split('!')
             self.conn = lite.connect('authDb.db')
             self.c = self.conn.cursor()
