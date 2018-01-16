@@ -1,6 +1,8 @@
 import sqlite3 as lite
 import socket
 import datetime
+import glob
+import os
 try:
     import gspread
 except:
@@ -562,7 +564,7 @@ class networking:
     def __init__(self):
         try:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.bind(('10.3.10.17', 80))
+            self.s.bind(('127.0.0.1', 80))
             self.s.listen(7)
             self.s.close()
             x = datetime.datetime.time(datetime.datetime.now())
@@ -577,8 +579,7 @@ class networking:
             print(x+ 'Couldnt bind a socket to local host on port 80... exiting, please check perms, etc etc then try again...')
             exit()
     def mainNetworking(self):
-        host = '10.3.10.17'
-
+        host = '127.0.0.1'
         port = 29317
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
@@ -605,6 +606,7 @@ class networking:
                 procDataC = procData()
                 self.result = procDataC.proccessDbData(self.data, self.ip)
                 self.result = str(self.result)
+                print(self.result)
                 #print(self.result) #Maybe return this data to client?
                 cs.send(self.result.encode())
 
@@ -698,6 +700,36 @@ class procData:
             self.conn.commit()
             self.c.close()
             return 'Created' #User accout is made, but I want to add a email func to this, where we email the user a code, just to make sure the email is right.
+        if(self.command=='0xG08'):
+            """
+            Here is where we would fetch all the xml data for a user and return it in one string
+            """
+
+            cDir = os.getcwd()
+            u = " \ "
+            u = u.replace(' ', '')
+
+            #Format from \ to / because windows >:C seriously ima kill which ever windows dev decided \ is better than /
+            cDirF = cDir.replace(u, '/')
+            xmlFileSys = cDirF+"/"+self.commandArg
+
+            userFiles = '' #What i can do here is just make a manifest.json for each users and pull data from that instead...
+            fileCounter = 0
+            for files in glob.glob(self.commandArg+'/*.xml'):
+                userFiles = userFiles+ str(files)+','
+                fileCounter = fileCounter + 1
+            #now all the data is inside userFiles, keep in mind there is an extra comma at the end :/
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- User: '+str(self.commandArg)+' has '+str(fileCounter)+' xml sheets, sending that data back to them now --]')
+            if(fileCounter == 0):
+                userFiles = 'False'
+                return str(userFiles)
+            if(fileCounter != 0):
+                userFiles = userFiles.replace(self.commandArg,  '')
+                userFiles = userFiles.replace(u, '')
+                return str(userFiles)
+
     def buildDb(self, url, fileName, pathToDb):
         """
         Here we would take the SS url and unpack the data and toss it into a db, then toss it into a xml docs
@@ -790,6 +822,7 @@ class procData:
         x = str(x)[:8]
         print(x + '[-- Finished up the xm & db process for user' + pathToDb + ' --]')
         return self.xmlUrl
+
 class mainProg:
     def __init__(self):
         x = datetime.datetime.time(datetime.datetime.now())
