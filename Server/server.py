@@ -47,7 +47,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -60,12 +60,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -73,7 +73,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
 
             x = int(x)
             list.insert(0, x) #subtracted time
@@ -108,8 +108,8 @@ class vdot:
         vdotC = vdot()
         selfs = None
         vdotNum = vdot.vdotMiles(selfs, runnerTime)
-        print(vdotNum)
-        print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        #print(vdotNum)
+        #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
     def vdot1500(self, runnerTime):
         x, y = runnerTime.split(':')
@@ -129,7 +129,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -142,12 +142,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -155,7 +155,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -189,8 +189,8 @@ class vdot:
         vdotC = vdot()
         selfs = None
         vdotNum = vdot.vdotMiles(selfs, runnerTime)
-        print(vdotNum)
-        print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        #print(vdotNum)
+        #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
     def vdot1600(self, runnerTime):
         x, y = runnerTime.split(':')
@@ -210,7 +210,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -223,12 +223,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -236,7 +236,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -280,7 +280,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -293,12 +293,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -306,7 +306,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -351,7 +351,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -364,12 +364,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -377,7 +377,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -423,7 +423,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -436,12 +436,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -449,7 +449,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -495,7 +495,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    #print(items)
+                    ##print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -508,12 +508,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            #print(miles)
-            #print('x'+miles[0])
+            ##print(miles)
+            ##print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -521,7 +521,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -551,12 +551,12 @@ class vdot:
         #Data is the google ss data -- the runners numbers etc etc etc etc etc
         #meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9]
         vdotC = vdot()
-        mileVdot = vdotC.vdotMiles(self.runnerData[4])
-        mile2Vdot = vdotC.vdotMileTwo(self.runnerData[5])
-        meter5000Vdot = vdotC.vdot5000M(self.runnerData[6])
-        meter3000Vdot = vdotC.vdot3000M(self.runnerData[7])
-        meter1500 = vdotC.vdot3200(self.runnerData[8])
-        meter1600 = vdotC.vdot1600(self.runnerData[9])
+        mileVdot = vdotC.vdotMiles(data[4])
+        mile2Vdot = vdotC.vdotMileTwo(data[5])
+        meter5000Vdot = vdotC.vdot5000M(data[6])
+        meter3000Vdot = vdotC.vdot3000M(data[7])
+        meter1500 = vdotC.vdot3200(data[8])
+        meter1600 = vdotC.vdot1600(data[9])
         advVdot = int(mileVdot)+int(mile2Vdot)+int(meter5000Vdot)+int(meter3000Vdot)+int(meter1500)+int(meter1600)
         advVdot = advVdot % 6 #adv
         return advVdot
@@ -624,7 +624,7 @@ class procData:
         So the data recived would look like
         command$#$args_@#@_data
         for example
-        0xL08$#$john18:jcTeam01_@#@_https://docs.google.com/spreadsheetExampleUrl
+        0xL08$#$john18!jcTeam01_@#@_https://docs.google.com/spreadsheetExampleUrl
         """
         #print(sData) for when _@#@_ is tossing errors.
         self.commandData, self.data = sData.split('_@#@_')
@@ -634,13 +634,14 @@ class procData:
             Here we would path to the db file using self.commandArg, which would hold the username and db title.
             The username would be the folder that the db is held in.
             """
-            self.pathToDb, self.fileName = self.commandArg.split(':')
+            #print(self.commandArg)
+            self.pathToDb, self.fileName = self.commandArg.split('!')
             self.buildData = self.buildDb(self.data, self.fileName, self.pathToDb)
             return self.buildData
         if(self.command=='0xL0S'):
             #Login via sql, weeeeeee
             #split the var up
-            username, passW = self.data.split(':')
+            username, passW = self.data.split('!')
             self.conn = lite.connect('authDb.db')
             self.c = self.conn.cursor()
             self.c.execute('select * from auth')
@@ -673,7 +674,7 @@ class procData:
             return 1 #If the for loop doesnt break due to a return, the username and pass wasn't there
         if(self.command=='0xC0S'):
             #print(self.commandData)
-            username, passW = self.data.split(':')
+            username, passW = self.data.split('!')
             self.passW = passW
             self.username = username # I defined weird below, so this fixes it, its only 18 or so bytes of data :shrug:
             self.conn = lite.connect('authDb.db')
@@ -759,7 +760,9 @@ class procData:
             x = str(x)[:8]
             print(x+ '[-- Trying to authorize our creds --]')
             gc = gspread.authorize(credentials)
-            self.userSS = gs.open_by_key('1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4')
+            #print(url)
+            self.userSheet = gc.open_by_url(url)
+            self.userSS = self.userSheet.get_worksheet(0)
         except:
             print(x + '[-- Cred auth failed, check google and see if our api is still up? (Or check the network) --]')
             return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
@@ -767,22 +770,48 @@ class procData:
         """
         Open the DB -- And make our tables
         """
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- Starting to build the db for user: '+str(pathToDb)+' --]')
         self.conn = lite.connect(self.dbUrl) #Creates the file
         self.c = self.conn.cursor()
         self.c.execute("CREATE TABLE Identification(runnerID TEXT, fname TEXT, lname TEXT)")
-        self.c.execute("CREATE TABLE Stats(meter800 TEXT, mile TEXT, 2mile TEXT, 500meter TEXT, meters3000 TEXT, meters1500 TEXT, meters1600 TEXT)")
+        self.c.execute("CREATE TABLE Stats(meter800 TEXT, mile TEXT, mile2 TEXT, meter500 TEXT, meters3000 TEXT, meters1500 TEXT, meters1600 TEXT)")
         """
         Pull the Data from SS -- gonna use a loop and put data in a list
         """
-        self.numOfRunners = int(self.userSS.row_count) - 2 #Because the top two rows contain info text
+        #count the full row
+        x = 0
+        y = 1
+        z = 1
+        while(x!=y):
+            if(self.userSS.cell(z,1).value != ''):
+                print('Is full')
+                z = z + 1
+                pass
+            if(self.userSS.cell(z,1).value == ''):
+                self.rowCount = z
+                print('isnt full')
+                print(z)
+                break
+
+
+        self.numOfRunners = int(self.rowCount) - 2 #Because the top two rows contain info text
         self.currentRow = 1
         self.rowNum = 3
         self.xmlUrl = str(pathToDb)+'/'+fileName+'.xml' #then we would add this path to our host url for html grab
         self.rootTree = Et.Element('root')
         self.runnerElem = Et.SubElement(self.rootTree, "Runners")
-
+        print('starting runners with data: '+self.xmlUrl)
         while(self.currentRow != int(self.numOfRunners + 1 )):
-            self.runnerData = self.userSS.row_values(self.rowNum)
+            print('started a runner')
+            self.rowval = self.userSS.row_values(self.rowNum)
+
+            for x in self.rowval:
+                if(x == ''):
+                    self.rowval.remove(x)
+
+            self.runnerData = self.rowval#self.userSS.row_values(self.rowNum) # THIS WONT WORK: this is a returned value from such a command "['Each row is 1 runner. ## TRAINING DATA', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']"
             """
             xml
             """
@@ -802,15 +831,19 @@ class procData:
             Insert into Db
             """
             self.c.execute("insert into Identification (runnerID, fname, lname) values (?, ?, ?)",(self.runnerData[0], self.runnerData[1], self.runnerData[2]))
-            self.c.execute("insert into Stats (meter800, mile, mile2, 500meter, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
+            self.c.execute("insert into Stats (meter800, mile, mile2, meter500, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
             self.conn.commit()
             self.currentRow = self.currentRow + 1
             self.rowNum = self.rowNum + 1
+            print('finished a runner')
             #End of Loop
 
         """
         Clean up and save
         """
+        x = datetime.datetime.time(datetime.datetime.now())
+        x = str(x)[:8]
+        print(x + '[-- cleaning up the xm & db process for user' + pathToDb + ' --]')
         self.tree = Et.ElementTree(self.rootTree)
         self.tree.write(self.xmlUrl) #Xml is written and cleaned up
         self.conn.commit() #Commit to the db -- forgot todo this earlier and the ss were not saving in the db...
@@ -868,7 +901,7 @@ class authorization:
             print(x + '[-- Error: NameError -- OAUTH ISNT installed. If error isnt NameError it is: '+str(sys.exc_info()[0])+' Passing --]')
 
         try:
-            gc.open_by_key('1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4')
+            #gc.open_by_key('1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4')
             #Add a close command here...
 
             return 'True'
