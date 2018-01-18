@@ -5,6 +5,9 @@ var exec = require('child_process').exec;
 function buildSpreadsheet() {
   var userSpreadsheet = document.getElementById('spreadsheetUrl').value
   var teamName = document.getElementById('teamName').value
+  document.getElementById('teamName').remove()
+  document.getElementById('spreadsheetUrl').remove()
+  document.getElementById('spreadsheetButton').remove()
   var pyString = "0xL08$#$"+teamName+"_@#@_" + userSpreadsheet //0xL08$#$john_@#@_https://docs.google.com/d/examplespreadsheet
   var child = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
     if (error !== null) {
@@ -13,8 +16,33 @@ function buildSpreadsheet() {
   });
 
   child.stdout.on('data', function(data) {
+
+
     var returnResult = data.toString();
-    document.getElementById('erroCont').innerHTML = returnResult;
+    document.getElementById('headerMessage').innerHTML = "Success"
+    document.getElementById('details').innerHTML = "Please wait while we download the file!";
+
+    pyString2 = "0xGXL$#$"+returnResult
+    console.log(pyString2)
+    var child2 = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
+      if (error !== null) {
+        console.log('exec error: ' + error); //Just to catch any errors
+      }
+    });
+    child2.stdout.on('data', function(data) {
+      if (data == 0) {
+        //success
+        ipcRenderer.send('returnResult', 'null') //Since it was a success we reload the page so we may find the downloaded spreadsheet
+      }
+      if (data == 1) {
+        // Fail
+        document.getElementById('headerMessage').innerHTML = "Download Failed"
+        document.getElementById('details').innerHTML = "Please check your internet connection and restart the program...";
+      }
+    });
+    child2.stdin.write(pyString2+'\n');
+
+
 
   });
 
@@ -33,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
     //console.log('Bounded');// -- making sure this function is running.
     ipcRenderer.send('loginSuccess');
   });
-  document.getElementById("spreadsheetButton").addEventListener("click", buildSpreadsheet);
+  document.getElementById("spreadsheetButton").addEventListener("click", function() {
+
+    document.getElementById('headerMessage').innerHTML = "Please Wait"
+    document.getElementById('details').innerHTML = "This could take awhile so please don't close the program!";
+    buildSpreadsheet();
+  });
 
 })

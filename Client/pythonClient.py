@@ -39,7 +39,7 @@ class networking:
         with open(".userData.json", "r") as jsonFile:
             jsonData = json.load(jsonFile)
             user = str(jsonData["username"])
-        self.command = '0xL08$#$'+user+'!'+teamName+'_@#@_'+xmlUrl #0xL08$#$Username!testDb_@#@_https://docs.google.com/spreadsheets/d/1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4/edit#gid=0
+        self.command = '0xL08$#$'+user+'!'+teamName+'_@#@_'+xmlUrl #0xL08$#$testDb_@#@_https://docs.google.com/spreadsheets/d/1lvFMDP6fsuOueuuPx-nJlVGoItWbgUCWGS1eNm2Oys4/edit#gid=0
         self.command = self.command.encode()
         self.data = self.command   #https://docs.google.com/spreadsheetExampleUrl'.encode()
 
@@ -146,10 +146,10 @@ class networking:
         self.result = self.s.recv(1024).decode()
         return(self.result)
         #print(self.result)
-    def getHostXmlFile(self, xmlFile, user):
+    def getHostXmlFile(self, xmlFile):
         host = '127.0.0.1'
         try:
-            serverUrl = host+'/'+user+'/'+xmlFile
+            serverUrl = host+xmlFile
             response = requests.get(serverUrl)
             with open('/runnerData/'+xmlFile, 'wb') as files:
                 files.write(response.content)
@@ -244,7 +244,7 @@ class main:
                 jsonData = json.load(jsonFile)
                 user = str(jsonData["username"])
             xmlSheet = self.commandArgs
-            result = networkingC.getHostXmlFile(xmlSheet, user)
+            result = networkingC.getHostXmlFile(xmlSheet)
             return result
 """
 #-- Start --#
