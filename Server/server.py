@@ -29,7 +29,7 @@ NOTE:
 class vdot:
     def __init__(self):
         print('[-- VDOT CALLED --]')
-    def vdotMiles(self, runnerTime):
+    def vdotMiles(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -83,7 +83,7 @@ class vdot:
         """
         Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
         """
-        conn = lite.connect('miles.db')
+        conn = lite.connect('tmp/'+path+'miles.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -92,7 +92,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('miles.db')
+        conn = lite.connect('tmp/'+path+'miles.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -111,7 +111,7 @@ class vdot:
         #print(vdotNum)
         #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
-    def vdot1500(self, runnerTime):
+    def vdot1500(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -126,7 +126,7 @@ class vdot:
         loopNum = 0
         for items in worksheet.col_values(2): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='1500'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -164,7 +164,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('1500.db')
+        conn = lite.connect('tmp/'+path+'1500.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -173,7 +173,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('1500.db')
+        conn = lite.connect('tmp/'+path+'1500.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -192,7 +192,7 @@ class vdot:
         #print(vdotNum)
         #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
-    def vdot1600(self, runnerTime):
+    def vdot1600(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -207,7 +207,7 @@ class vdot:
         loopNum = 0
         for items in worksheet.col_values(3): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='1600'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -245,7 +245,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('1600.db')
+        conn = lite.connect('tmp/'+path+'1600.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -254,7 +254,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('1600.db')
+        conn = lite.connect('tmp/'+path+'1600.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -262,7 +262,7 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-    def vdot3000M(self, runnerTime):
+    def vdot3000M(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -275,9 +275,9 @@ class vdot:
         db = []
         vdotNum = 85
         loopNum = 0
-        for items in worksheet.col_values(3): #4 is miles
+        for items in worksheet.col_values(5): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='3000M'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -315,7 +315,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('3000M.db')
+        conn = lite.connect('tmp/'+path+'3000M.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -324,7 +324,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('3000M.db')
+        conn = lite.connect('tmp/'+path+'3000M.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -332,8 +332,7 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-
-    def vdot3200(self, runnerTime):
+    def vdot3200(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -348,7 +347,7 @@ class vdot:
         loopNum = 0
         for items in worksheet.col_values(6): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='3200'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -365,7 +364,7 @@ class vdot:
         x = 0
         for miles in db:
             ##print(miles)
-            ##print('x'+miles[0])
+            #print('error: '+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
@@ -386,7 +385,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('3200.db')
+        conn = lite.connect('tmp/'+path+'3200.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -395,7 +394,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('3200.db')
+        conn = lite.connect('tmp/'+path+'3200.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -403,9 +402,7 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-
-
-    def vdotMileTwo(self, runnerTime):
+    def vdotMileTwo(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -420,7 +417,7 @@ class vdot:
         loopNum = 0
         for items in worksheet.col_values(7): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='2 Mile'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -437,7 +434,7 @@ class vdot:
         x = 0
         for miles in db:
             ##print(miles)
-            ##print('x'+miles[0])
+            #print('error: '+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
@@ -458,7 +455,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('mileTwo.db')
+        conn = lite.connect('tmp/'+path+'mileTwo.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -467,7 +464,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('mileTwo.db')
+        conn = lite.connect('tmp/'+path+'mileTwo.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -475,9 +472,7 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-
-
-    def vdot5000M(self, runnerTime):
+    def vdot5000M(self, runnerTime, path):
         x, y = runnerTime.split(':')
         runnerTime = int(x) * 60
         runnerTime = runnerTime + int(y)
@@ -492,7 +487,7 @@ class vdot:
         loopNum = 0
         for items in worksheet.col_values(8): #4 is miles
             if(items):
-                if(items=='Mile'): # gets rid of row one -- mile
+                if(items=='5000M'): # gets rid of row one -- mile
                     pass
                 else:
                     ##print(items)
@@ -530,7 +525,7 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect('5000m.db')
+        conn = lite.connect('tmp/'+path+'5000m.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -539,7 +534,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect('5000m.db')
+        conn = lite.connect('tmp/'+path+'5000m.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -547,18 +542,40 @@ class vdot:
 
         vdot = returnSql[0] #selects     the first value
         return vdot[0] #this is the vdot for that number -- just returns the vdot number
-    def calcAll(self, data):
+    def calcAll(self, data, path):
         #Data is the google ss data -- the runners numbers etc etc etc etc etc
         #meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9]
         vdotC = vdot()
-        mileVdot = vdotC.vdotMiles(data[4])
-        mile2Vdot = vdotC.vdotMileTwo(data[5])
-        meter5000Vdot = vdotC.vdot5000M(data[6])
-        meter3000Vdot = vdotC.vdot3000M(data[7])
-        meter1500 = vdotC.vdot3200(data[8])
-        meter1600 = vdotC.vdot1600(data[9])
+        try:
+            for files in glob.glob('tmp/*.db'):
+                os.remove(files)
+
+            os.rmdir('tmp')
+            os.mkdir('tmp')
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- Tmp dir did exsist, refreshing it now --]')
+        except:
+            x = datetime.datetime.time(datetime.datetime.now())
+            x = str(x)[:8]
+            print(x + '[-- Tmp dir did not exsist, creating one --]')
+            os.mkdir('tmp')
+        print('data: '+str(data))
+        mileVdot = vdotC.vdotMiles(data[4], path)
+        mile2Vdot = vdotC.vdotMileTwo(data[5], path)
+        meter5000Vdot = vdotC.vdot5000M(data[6], path)
+        meter3000Vdot = vdotC.vdot3000M(data[7], path)
+        meter1500 = vdotC.vdot3200(data[8], path)
+        meter1600 = vdotC.vdot1600(data[9], path)
+        print('m: '+str(mileVdot))
+
         advVdot = int(mileVdot)+int(mile2Vdot)+int(meter5000Vdot)+int(meter3000Vdot)+int(meter1500)+int(meter1600)
-        advVdot = advVdot % 6 #adv
+        print(advVdot)
+        a = 6
+        advVdot = advVdot / a #adv
+        advVdot = str(advVdot)
+        advVdot, x = advVdot.split('.')
+        print(advVdot)
         return advVdot
 class networking:
     def __init__(self):
@@ -641,7 +658,7 @@ class procData:
         if(self.command=='0xL0S'):
             #Login via sql, weeeeeee
             #split the var up
-            print(self.data)
+            #print(self.data)
             username, passW = self.data.split('!')
             self.conn = lite.connect('authDb.db')
             self.c = self.conn.cursor()
@@ -787,13 +804,13 @@ class procData:
         z = 1
         while(x!=y):
             if(self.userSS.cell(z,1).value != ''):
-                print('Is full')
+                #print('Is full')
                 z = z + 1
                 pass
             if(self.userSS.cell(z,1).value == ''):
                 self.rowCount = z
-                print('isnt full')
-                print(z)
+                #print('isnt full')
+                #print(z)
                 break
 
 
@@ -804,41 +821,59 @@ class procData:
         self.rootTree = Et.Element('root')
         self.runnerElem = Et.SubElement(self.rootTree, "Runners")
         print('starting runners with data: '+self.xmlUrl)
+        isNum = '' #to prevent 'refrence before assignemnt error'
         while(self.currentRow != int(self.numOfRunners + 1 )):
-            print('started a runner')
-            self.rowval = self.userSS.row_values(self.rowNum)
+            try:
+                print('starting the try')
+                data = self.userSS.row_values(self.rowNum)
+                print(data)
+                secData = data[4]
 
-            for x in self.rowval:
-                if(x == ''):
-                    self.rowval.remove(x)
+                x, y = secData.split(':') #fail point
+                isNum = 'yes'
+            except:
+                print('caught the error')
+                isNum = 'no'
+            if(isNum == 'yes'):
+                print('started a runner')
+                self.rowval = self.userSS.row_values(self.rowNum)
 
-            self.runnerData = self.rowval#self.userSS.row_values(self.rowNum) # THIS WONT WORK: this is a returned value from such a command "['Each row is 1 runner. ## TRAINING DATA', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']"
-            """
-            xml
-            """
+                for x in self.rowval:
+                    if(x == ''):
+                        self.rowval.remove(x)
 
-            self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
-            #So we decided it was easier just to put all of the data in node for JS. - T
-            """
-            calc vdot
-            """
-            vdotC = vdot()
-            vdotC.calcAll(self.runnerData)
-            """
-            input data into xml
-            """
-            Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])),  meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
-            """
-            Insert into Db
-            """
-            self.c.execute("insert into Identification (runnerID, fname, lname) values (?, ?, ?)",(self.runnerData[0], self.runnerData[1], self.runnerData[2]))
-            self.c.execute("insert into Stats (meter800, mile, mile2, meter500, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
-            self.conn.commit()
-            self.currentRow = self.currentRow + 1
-            self.rowNum = self.rowNum + 1
-            print('finished a runner')
-            #End of Loop
+                self.runnerData = self.rowval#self.userSS.row_values(self.rowNum) # THIS WONT WORK: this is a returned value from such a command "['Each row is 1 runner. ## TRAINING DATA', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']"
+                """
+                xml
+                """
 
+                self.runner = Et.SubElement(self.runnerElem, "ID", id = self.runnerData[0])
+                #So we decided it was easier just to put all of the data in node for JS. - T
+                """
+                calc vdot
+                """
+                vdotC = vdot()
+                self.vdotData = vdotC.calcAll(self.runnerData, pathToDb)
+                """
+                input data into xml
+                """
+                print('inserting runner:'+ str(self.runnerData[1])+' into xml')
+                Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])), vdotData = self.vdotData, meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
+                """
+                Insert into Db
+                """
+                self.c.execute("insert into Identification (runnerID, fname, lname) values (?, ?, ?)",(self.runnerData[0], self.runnerData[1], self.runnerData[2]))
+                self.c.execute("insert into Stats (meter800, mile, mile2, meter500, meters3000, meters1500, meters1600) values (?, ?, ?, ?, ?, ?, ?)", (self.runnerData[3], self.runnerData[4], self.runnerData[5], self.runnerData[6], self.runnerData[7], self.runnerData[8], self.runnerData[9] ))
+                self.conn.commit()
+                self.currentRow = self.currentRow + 1
+                self.rowNum = self.rowNum + 1
+                print('finished a runner')
+                #End of Loop
+            if(isNum != 'yes'):
+                print('is not a runner, passing')
+                self.currentRow = self.currentRow + 1
+                self.rowNum = self.rowNum + 1
+                #end of not a number loop
         """
         Clean up and save
         """
@@ -849,7 +884,7 @@ class procData:
         self.tree.write(self.xmlUrl) #Xml is written and cleaned up
         self.conn.commit() #Commit to the db -- forgot todo this earlier and the ss were not saving in the db...
         self.c.close() #DB is finished here
-
+        print(self.tree)
 
         #Before returning it, I would make it a url for the client to grab, maybe for now we just point at local host, but idk.
         x = datetime.datetime.time(datetime.datetime.now())
