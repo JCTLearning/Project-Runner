@@ -149,7 +149,7 @@ class networking:
     def getHostXmlFile(self, xmlFile):
         host = '127.0.0.1'
         try:
-            serverUrl = host+xmlFile
+            serverUrl = host+xmlFile #xml holds: usernameFolder/filename
             response = requests.get(serverUrl)
             with open('/runnerData/'+xmlFile, 'wb') as files:
                 files.write(response.content)
