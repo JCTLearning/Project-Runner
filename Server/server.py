@@ -84,7 +84,9 @@ class vdot:
         """
         Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
         """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'miles.db')
+        string = str(random.randint(1, 100))
+        print(path+'/tmp/'+'x'+string+'miles.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'miles.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -93,7 +95,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'miles.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'miles.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -165,7 +167,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'1500.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'1500.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -174,7 +177,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'1500.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'1500.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -246,7 +249,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'1600.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'1600.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -255,7 +259,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'1600.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'1600.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -316,7 +320,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'3000M.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'3000M.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -325,7 +330,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'3000M.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'3000M.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -386,7 +391,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'3200.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'3200.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -395,7 +401,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'3200.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'3200.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -456,7 +462,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'mileTwo.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'mileTwo.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -465,7 +472,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'mileTwo.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'mileTwo.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -526,7 +533,8 @@ class vdot:
             """
             Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1600.db in the user fiie. Lets also name it mile or km depending on value.
             """
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'5000m.db')
+        string = str(random.randint(1, 100))
+        conn = lite.connect(path+'/tmp/'+'x'+string+'5000m.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in output:
@@ -535,7 +543,7 @@ class vdot:
         conn.commit()
         c.close()
         #grab Data
-        conn = lite.connect(path+'/tmp/'+str(random.randomint(1, 100))+'5000m.db')
+        conn = lite.connect(path+'/tmp/'+'x'+string+'5000m.db')
         c = conn.cursor()
         c.execute('select vdot, time from data order by time asc')
         returnSql = c.fetchall()
@@ -548,11 +556,11 @@ class vdot:
         #meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9]
         vdotC = vdot()
         try:
-            for files in glob.glob('tmp/*.db'):
+            for files in glob.glob(path+'/tmp/*.db'):
                 os.remove(files)
 
-            os.rmdir('tmp')
-            os.mkdir('tmp')
+            os.rmdir(path+'/tmp')
+            os.mkdir(path+'/tmp')
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
             print(x + '[-- Tmp dir did exsist, refreshing it now --]')
@@ -560,7 +568,7 @@ class vdot:
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
             print(x + '[-- Tmp dir did not exsist, creating one --]')
-            os.mkdir('tmp')
+            os.mkdir(path+'/tmp')
         print('data: '+str(data))
         mileVdot = vdotC.vdotMiles(data[4], path)
         mile2Vdot = vdotC.vdotMileTwo(data[5], path)
@@ -582,7 +590,7 @@ class networking:
     def __init__(self):
         try:
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.s.bind(('127.0.0.1', 80))
+            self.s.bind(('127.0.0.1', 800))
             self.s.listen(7)
             self.s.close()
             x = datetime.datetime.time(datetime.datetime.now())
@@ -654,7 +662,7 @@ class procData:
             """
             #print(self.commandArg)
             self.pathToDb, self.fileName = self.commandArg.split('!')
-            self.pathToDb = '/Apache24/htdocs/'
+            self.pathToDb = '/Apache24/htdocs/' + self.pathToDb
             self.buildData = self.buildDb(self.data, self.fileName, self.pathToDb)
             return self.buildData
         if(self.command=='0xL0S'):
@@ -892,6 +900,7 @@ class procData:
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
         print(x + '[-- Finished up the xm & db process for user' + pathToDb + ' --]')
+        self.xml = self.xml.replace('/Apache24/htdocs', '')
         return self.xmlUrl
 
 class mainProg:
