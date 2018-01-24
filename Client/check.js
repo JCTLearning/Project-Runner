@@ -59,6 +59,8 @@ function getSSData() {
       if (dataHolder !== null) {
         try{
           var dataText = dataHolder.replace('.xml', '');
+          dataText = dataText.replace('/Apache24/htdocs/','')
+          //console.log(dataText)
           var button =  document.createElement("button");
           button.innerHTML = dataText
           button.id = dataHolder
@@ -189,6 +191,7 @@ function checkOnlineF() {
             if (dataHolder !== null) {
               try{
                 var dataText = dataHolder.replace('.xml', '');
+                dataText = dataText.replace('/Apache24/htdocs/','')
                 var button =  document.createElement("button");
                 button.innerHTML = dataText
                 button.id = dataHolder
@@ -203,7 +206,8 @@ function checkOnlineF() {
                 var x = "refrenceTag_" + dataHolder
 
                 button.addEventListener('click',  function(s, y = this.id) {
-                  // Take Y (which is the xml file) and build a new page using is
+                  // Take Y (which is the xml file) and build a new page using i
+                  y = y.replace('/Apache24/htdocs/','')
                   console.log(y)
                   var fetchXml = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
                     if (error !== null) {
@@ -224,6 +228,7 @@ function checkOnlineF() {
 
                     }
                   });
+
                   fetchXml.stdin.write('0xGXL$#$'+y+'\n')
 
 

@@ -147,11 +147,18 @@ class networking:
         return(self.result)
         #print(self.result)
     def getHostXmlFile(self, xmlFile):
-        host = '127.0.0.1'
+        host = 'localhost'
         try:
-            serverUrl = host+xmlFile #xml holds: usernameFolder/filename
-            response = requests.get(serverUrl)
+            serverUrl = host+xmlFile #xml holds: usernameFolder/filename: ''''http://localhost/Username/testDb.xml')'''
+            protocol = 'http://'
+            header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.'}
+            print(host)
+            print(xmlFile)
+            print(serverUrl)
+            response = requests.get(protocol+serverUrl, headers = header)
+            print(response.content)
             with open('/runnerData/'+xmlFile, 'wb') as files:
+                #print('wri')
                 files.write(response.content)
                 files.close()
             return 0
@@ -243,7 +250,7 @@ class main:
             with open(".userData.json", "r") as jsonFile:
                 jsonData = json.load(jsonFile)
                 user = str(jsonData["username"])
-            xmlSheet = self.commandArgs
+            xmlSheet = '/'+user+'/'+self.commandArgs
             result = networkingC.getHostXmlFile(xmlSheet)
             return result
 """
