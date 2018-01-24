@@ -733,18 +733,21 @@ class procData:
             """
             Here is where we would fetch all the xml data for a user and return it in one string
             """
+            """
+            Code isn't needed due to a change in pathing
 
             cDir = os.getcwd()
+            """
             u = " \ "
             u = u.replace(' ', '')
 
             #Format from \ to / because windows >:C seriously ima kill which ever windows dev decided \ is better than /
-            cDirF = cDir.replace(u, '/')
+            cDirF = '/Apache24/htdocs'
             xmlFileSys = cDirF+"/"+self.commandArg
 
             userFiles = '' #What i can do here is just make a manifest.json for each users and pull data from that instead...
             fileCounter = 0
-            for files in glob.glob(self.commandArg+'/*.xml'):
+            for files in glob.glob(cDirF+'/'+self.commandArg+'/*.xml'):
                 userFiles = userFiles+ str(files)+','
                 fileCounter = fileCounter + 1
             #now all the data is inside userFiles, keep in mind there is an extra comma at the end :/
@@ -900,7 +903,7 @@ class procData:
         x = datetime.datetime.time(datetime.datetime.now())
         x = str(x)[:8]
         print(x + '[-- Finished up the xm & db process for user' + pathToDb + ' --]')
-        self.xml = self.xml.replace('/Apache24/htdocs', '')
+        self.xmlUrl = self.xmlUrl.replace('/Apache24/htdocs', '')
         return self.xmlUrl
 
 class mainProg:
