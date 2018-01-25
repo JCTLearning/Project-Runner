@@ -21,26 +21,35 @@ function buildSpreadsheet() {
     var returnResult = data.toString();
     document.getElementById('headerMessage').innerHTML = "Success"
     document.getElementById('details').innerHTML = "Please wait while we download the file!";
+    if (returnResult == 0) {
+      //If Succeeded
+      pyString2 = "0xGXL$#$"+returnResult
+      //console.log(pyString2)
+      var child2 = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
+        if (error !== null) {
 
-    pyString2 = "0xGXL$#$"+returnResult
-    console.log(pyString2)
-    var child2 = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
-      if (error !== null) {
-        console.log('exec error: ' + error); //Just to catch any errors
+          console.log('exec error: ' + error); //Just to catch any errors
+        }
+      });
+      child2.stdout.on('data', function(data) {
+        if (data == 0) {
+          //success
+          ipcRenderer.send('returnResult', 'null') //Since it was a success we reload the page so we may find the downloaded spreadsheet
+        }
+        if (data == 1) {
+          // Fail
+          document.getElementById('headerMessage').innerHTML = "Download Failed"
+          document.getElementById('details').innerHTML = "Please check your internet connection and restart the program...";
+        }
+      });
+      child2.stdin.write(pyString2+'\n');
+    }
+    if (returnResult != 0) {
+      //If Failed
+      document.getElementById('details').innerHTML = "There was a failure in our process. Check your internet connection and make sure the spreadsheet is shared with projectrunner-test@pr-testingdata.iam.gserviceaccount.com";
+      document.getElementById('headerMessage').innerHTML = "Failure"
       }
-    });
-    child2.stdout.on('data', function(data) {
-      if (data == 0) {
-        //success
-        ipcRenderer.send('returnResult', 'null') //Since it was a success we reload the page so we may find the downloaded spreadsheet
-      }
-      if (data == 1) {
-        // Fail
-        document.getElementById('headerMessage').innerHTML = "Download Failed"
-        document.getElementById('details').innerHTML = "Please check your internet connection and restart the program...";
-      }
-    });
-    child2.stdin.write(pyString2+'\n');
+
 
 
 
@@ -54,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var backButton = document.createElement("button");
   backButton.innerHTML = 'Back'
   backButton.id = 'backButtonId'
-  document.body.appendChild(backButton);
+  document.getElementById('mainBody').appendChild(backButton);
   //Bind the back button
 
   backButton.addEventListener("click", function(s, xml = null) {

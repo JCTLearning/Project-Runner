@@ -35,7 +35,7 @@ function getSSData() {
     var logoutButton = document.createElement("button");
     logoutButton.innerHTML = 'Logout'
     logoutButton.id = 'logoutButtonId'
-    document.body.appendChild(logoutButton);
+    document.getElementById('mainBody').appendChild(logoutButton);
     //Bind the logout button
 
     logoutButton.addEventListener("click", function(s, xml = null) {
@@ -59,6 +59,8 @@ function getSSData() {
       if (dataHolder !== null) {
         try{
           var dataText = dataHolder.replace('.xml', '');
+          dataText = dataText.replace('/Apache24/htdocs/','')
+          //console.log(dataText)
           var button =  document.createElement("button");
           button.innerHTML = dataText
           button.id = dataHolder
@@ -148,6 +150,7 @@ function checkOnlineF() {
         if (data == 0) {
           document.getElementById('headerMessage').innerHTML = 'Oh no'
           document.getElementById('details').innerHTML = "It seems we are not hosting any files for you! Try uploading a spreadsheet using the 'create one' button, or try again using the 'check online' button!"
+          /**
           var checkOnline = document.createElement("button");
           checkOnline.innerHTML = "Check Online"
 
@@ -158,12 +161,12 @@ function checkOnlineF() {
           document.body.appendChild(addOne);
           checkOnline.addEventListener("click", checkOnlineF);
           addOne.addEventListener("click", addDb);
-
+          **/
           //Add the logout button
           var logoutButton = document.createElement("button");
           logoutButton.innerHTML = 'Logout'
           logoutButton.id = 'logoutButtonId'
-          document.body.appendChild(logoutButton);
+          document.getElementById('mainBody').appendChild(logoutButton);
           //Bind the logout button
 
           logoutButton.addEventListener("click", function(s, xml = null) {
@@ -189,6 +192,7 @@ function checkOnlineF() {
             if (dataHolder !== null) {
               try{
                 var dataText = dataHolder.replace('.xml', '');
+                dataText = dataText.replace('/Apache24/htdocs/','')
                 var button =  document.createElement("button");
                 button.innerHTML = dataText
                 button.id = dataHolder
@@ -203,7 +207,8 @@ function checkOnlineF() {
                 var x = "refrenceTag_" + dataHolder
 
                 button.addEventListener('click',  function(s, y = this.id) {
-                  // Take Y (which is the xml file) and build a new page using is
+                  // Take Y (which is the xml file) and build a new page using i
+                  y = y.replace('/Apache24/htdocs/','')
                   console.log(y)
                   var fetchXml = exec("py -i pythonClient.py ", function (error, stdout, stderr) {
                     if (error !== null) {
@@ -224,6 +229,7 @@ function checkOnlineF() {
 
                     }
                   });
+
                   fetchXml.stdin.write('0xGXL$#$'+y+'\n')
 
 
@@ -282,11 +288,19 @@ function check() {
       var checkOnline = document.createElement("button");
       checkOnline.innerHTML = "Check Online"
 
-      document.body.appendChild(checkOnline);
+      document.getElementById('mainBody').appendChild(checkOnline);
 
       var addOne =  document.createElement("button");
       addOne.innerHTML = "Create One"
-      document.body.appendChild(addOne);
+      document.getElementById('mainBody').appendChild(addOne);
+      var logoutButton = document.createElement("button");
+      logoutButton.innerHTML = 'Logout'
+      logoutButton.id = 'logoutButtonId'
+      document.getElementById('mainBody').appendChild(logoutButton);
+      logoutButton.addEventListener("click", function(s, xml = null) {
+        //i just copied this part ignore the random vars kek
+        ipcRenderer.send('logout');
+      });
       checkOnline.addEventListener("click", checkOnlineF);
       addOne.addEventListener("click", addDb);
     }
