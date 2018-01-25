@@ -23,7 +23,7 @@ function getSSData() {
     var checkOnline = document.createElement("button");
     checkOnline.innerHTML = "Check Online"
 
-    document.body.appendChild(checkOnline);
+    document.getElementById('mainBody').appendChild(checkOnline);
 
     var addOne =  document.createElement("button");
     addOne.innerHTML = "Create One"
@@ -186,6 +186,17 @@ function checkOnlineF() {
           var dataVar = data.split(','); // is now a arayy with each file.
           var loopNum = 0;
           var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
+          if(document.getElementById('xmlBlock')) {
+            document.getElementById('xmlBlock').remove()
+            var mainDiv = document.createElement('div');
+            mainDiv.id = 'xmlBlock'
+            document.body.appendChild(mainDiv)
+          }else {
+            var mainDiv = document.createElement('div');
+            mainDiv.id = 'xmlBlock'
+            document.body.appendChild(mainDiv)
+
+          }
           while (loopNum != arrayLength) {
             dataHolder = dataVar[loopNum]
             //IF not underfined build webpage
@@ -197,7 +208,7 @@ function checkOnlineF() {
                 button.innerHTML = dataText
                 button.id = dataHolder
 
-                document.body.appendChild(button);
+                document.getElementById('xmlBlock').appendChild(button);
                 /*
                 AHAHAHHAAHAHAHA THAT WAS A GUESS I DIDNT THINK DEFINING A VAR IN THE FUNCTION CALL WOULD CARRY THE DATA INTO THE FUNCTION LMAO
                 Anyways, there's a problem. No matter what button.id will = 'deleted' because its pulling the last version of button id,
@@ -225,7 +236,7 @@ function checkOnlineF() {
                     }
                     if (data != 0) {
                       document.getElementById('headerMessage').innerHTML = 'Oh no'
-                      document.getElementById('details').innerHTML = "It seems like we couldn't connect! Try again in a few or restart the program. Do make sure you're connected to the internet!"
+                      document.getElementById('details').innerHTML = "It seems like we couldn't download your data! Try again in a few or restart the program. Do make sure you're connected to the internet!"
 
                     }
                   });
