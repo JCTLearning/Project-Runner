@@ -785,7 +785,7 @@ class procData:
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
             print(x + '[-- OAUTH is not installed smh install it already. --]')
-            return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
+            return 1
         try:
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
@@ -796,7 +796,7 @@ class procData:
             self.userSS = self.userSheet.get_worksheet(0)
         except:
             print(x + '[-- Cred auth failed, check google and see if our api is still up? (Or check the network) --]')
-            return 'Server Error -- Could not contact google servers... Check back later, we will hopefully have it fixed!'
+            return 1
         self.dbUrl = str(pathToDb)+'/'+fileName+'.db'
         """
         Open the DB -- And make our tables
