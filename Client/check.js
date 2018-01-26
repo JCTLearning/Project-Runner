@@ -188,14 +188,28 @@ function checkOnlineF() {
           var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
           if(document.getElementById('xmlBlock')) {
             document.getElementById('xmlBlock').remove()
-            var mainDiv = document.createElement('div');
-            mainDiv.id = 'xmlBlock'
-            document.body.appendChild(mainDiv)
-          }else {
-            var mainDiv = document.createElement('div');
-            mainDiv.id = 'xmlBlock'
-            document.body.appendChild(mainDiv)
+            if(document.getElementById('xmlText')){
+              document.getElementById('xmlText').remove()
+            }
 
+            var mainDiv = document.createElement('div');
+            mainDiv.id = 'xmlBlock'
+            document.getElementById('mainBody').appendChild(mainDiv)
+            var xmlText = document.createElement('h');
+            xmlText.id = "xmlText"
+            xmlText.innerHTML = "Here are some of your online databases"
+            document.getElementById('xmlBlock').appendChild(xmlText)
+          }else {
+            if(document.getElementById('xmlText')){
+              document.getElementById('xmlText').remove()
+            }
+            var mainDiv = document.createElement('div');
+            mainDiv.id = 'xmlBlock'
+            document.getElementById('mainBody').appendChild(mainDiv)
+            var xmlText = document.createElement('h');
+            xmlText.id = "xmlText"
+            xmlText.innerHTML = "Here are some of your online databases"
+            document.getElementById('xmlBlock').appendChild(xmlText)
           }
           while (loopNum != arrayLength) {
             dataHolder = dataVar[loopNum]
