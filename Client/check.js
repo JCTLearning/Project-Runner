@@ -27,7 +27,7 @@ function getSSData() {
 
     var addOne =  document.createElement("button");
     addOne.innerHTML = "Create One"
-    document.body.appendChild(addOne);
+    document.getElementById('mainBody').appendChild(addOne);
     checkOnline.addEventListener("click", checkOnlineF);
     addOne.addEventListener("click", addDb);
 
@@ -43,7 +43,7 @@ function getSSData() {
       ipcRenderer.send('logout');
     });
     //Logout button done -- Lets clean up HTML
-    document.getElementById('headerMessage').innerHTML = "Here are your on disk athlete databases "
+    document.getElementById('headerMessage').innerHTML = "Athlete Database"
     document.getElementById('details').innerHTML = "If you'd like to check online for more / update your current databases, please click the 'Check Online' button. If you'd like to add a athlete database, click the 'Create One' button! If you'd like to open a specific database, click on its corrisponding name. If it is not there, try updating! "
     //Fill the new buttons of xml sheet
     /*
@@ -53,6 +53,45 @@ function getSSData() {
     var dataVar = data.split(','); // is now a arayy with each file.
     var loopNum = 0;
     var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
+    if(document.getElementById('xmlBlock')) {
+      //Get rid of exsisting xml block
+      document.getElementById('xmlBlock').remove()
+    }if(document.getElementById('xmlText')){
+        //Get rid of exsisting xml text
+        document.getElementById('xmlText').remove()
+
+
+      //Create new xml div
+      var mainDiv = document.createElement('div');
+      mainDiv.id = 'xmlBlock'
+      document.getElementById('mainBody').appendChild(mainDiv)
+      //Create new xml header text
+      var xmlText = document.createElement('h');
+      xmlText.id = "xmlText"
+      xmlText.innerHTML = "Here are some of your on disk databases"
+      document.getElementById('xmlBlock').appendChild(xmlText)
+    }else {
+      if(document.getElementById('xmlText')){
+        //Get rid of exsisting xml text
+        document.getElementById('xmlText').remove()
+      }
+      if(document.getElementById('xmlButton')){
+        document.getElementById('xmlButton').remove()
+      }
+      //Create new xml div
+      var mainDiv = document.createElement('div');
+      mainDiv.id = 'xmlBlock'
+      document.getElementById('mainBody').appendChild(mainDiv)
+      //Create new xml header text
+      var xmlText = document.createElement('h');
+      xmlText.id = "xmlText"
+      xmlText.innerHTML = "Here are some of your online databases"
+      document.getElementById('xmlBlock').appendChild(xmlText)
+      //Create xml button div
+      var xmlButDiv = document.createElement('div')
+      xmlButDiv.id = 'xmlButton'
+      document.getElementById('xmlBlock').appendChild(xmlButDiv);
+    }
     while (loopNum != arrayLength) {
       dataHolder = dataVar[loopNum]
       //IF not underfined build webpage
@@ -65,7 +104,7 @@ function getSSData() {
           button.innerHTML = dataText
           button.id = dataHolder
 
-          document.body.appendChild(button);
+          document.getElementById('xmlButton').appendChild(button);
           /*
           AHAHAHHAAHAHAHA THAT WAS A GUESS I DIDNT THINK DEFINING A VAR IN THE FUNCTION CALL WOULD CARRY THE DATA INTO THE FUNCTION LMAO
           Anyways, there's a problem. No matter what button.id will = 'deleted' because its pulling the last version of button id,
@@ -137,7 +176,7 @@ function checkOnlineF() {
       dataCheck.stdout.end()
       //console.log("we're connected, now trying to get a list of hosted xml files.")
       var xmlCheck = exec("py pythonClient.py ", function (error, stdout, stderr) {
-        console.log('executed');
+        //console.log('executed');
         if (error !== null) {
           console.log('exec error: ' + error); //Just to catch any errors
         }
@@ -177,6 +216,7 @@ function checkOnlineF() {
 
         if (data != 0){
           //Delete any pre exsisting buttons
+          console.log('Data')
           global.xmlList = data
           document.getElementById('headerMessage').innerHTML = 'Success!'
           document.getElementById('details').innerHTML = "Here are some of your avalible databases that we are hosting. Click on one to download it!"
@@ -187,29 +227,43 @@ function checkOnlineF() {
           var loopNum = 0;
           var arrayLength = dataVar.length + 1 // So we can do !=, and still have it activate when it =
           if(document.getElementById('xmlBlock')) {
+            //Get rid of exsisting xml block
             document.getElementById('xmlBlock').remove()
-            if(document.getElementById('xmlText')){
+          }if(document.getElementById('xmlText')){
+              //Get rid of exsisting xml text
               document.getElementById('xmlText').remove()
-            }
 
+
+            //Create new xml div
             var mainDiv = document.createElement('div');
             mainDiv.id = 'xmlBlock'
             document.getElementById('mainBody').appendChild(mainDiv)
+            //Create new xml header text
             var xmlText = document.createElement('h');
             xmlText.id = "xmlText"
             xmlText.innerHTML = "Here are some of your online databases"
             document.getElementById('xmlBlock').appendChild(xmlText)
           }else {
             if(document.getElementById('xmlText')){
+              //Get rid of exsisting xml text
               document.getElementById('xmlText').remove()
             }
+            if(document.getElementById('xmlButton')){
+              document.getElementById('xmlButton').remove()
+            }
+            //Create new xml div
             var mainDiv = document.createElement('div');
             mainDiv.id = 'xmlBlock'
             document.getElementById('mainBody').appendChild(mainDiv)
+            //Create new xml header text
             var xmlText = document.createElement('h');
             xmlText.id = "xmlText"
             xmlText.innerHTML = "Here are some of your online databases"
             document.getElementById('xmlBlock').appendChild(xmlText)
+            //Create xml button div
+            var xmlButDiv = document.createElement('div')
+            xmlButDiv.id = 'xmlButton'
+            document.getElementById('xmlBlock').appendChild(xmlButDiv);
           }
           while (loopNum != arrayLength) {
             dataHolder = dataVar[loopNum]
@@ -222,7 +276,7 @@ function checkOnlineF() {
                 button.innerHTML = dataText
                 button.id = dataHolder
 
-                document.getElementById('xmlBlock').appendChild(button);
+                document.getElementById('xmlButton').appendChild(button);
                 /*
                 AHAHAHHAAHAHAHA THAT WAS A GUESS I DIDNT THINK DEFINING A VAR IN THE FUNCTION CALL WOULD CARRY THE DATA INTO THE FUNCTION LMAO
                 Anyways, there's a problem. No matter what button.id will = 'deleted' because its pulling the last version of button id,
@@ -269,8 +323,11 @@ function checkOnlineF() {
               catch (error) {
                 if (error.name === 'TypeError') {
                   button.id = "delete" //yes yes yes we could just combine two lines, but im lazy.
-                  document.getElementById("delete").remove();//delete the element, so we don't get an empty button
-                  console.log('Caught the undefined array var, meaning the script has listed all of the buttons');
+                  if(document.getElementById("delete")){
+                    document.getElementById("delete").remove();//delete the element, so we don't get an empty button
+                  }
+
+                  //console.log('Caught the undefined array var, meaning the script has listed all of the buttons');
                   break
                 }
               }

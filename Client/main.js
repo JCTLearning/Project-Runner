@@ -44,7 +44,7 @@ let userData = null // I wanna pass the user info from window to window so ima m
 let xmlSheet = null // I want this to be global so we can acess it in the other events
 let runnerIdVar = null //Need this for creating indv runner pages
 const createLogin = () => {
-  mainWindow = new BrowserWindow({width: 1000, height: 600, icon: __dirname + '/programIcon.png'})
+  mainWindow = new BrowserWindow({width: 1000, height: 1000, icon: __dirname + '/programIcon.png'})
   mainWindow.loadURL(require('url').format({
     pathname: path.join(__dirname, 'login.html'), //Our main login Page
     protocol: 'file:',
