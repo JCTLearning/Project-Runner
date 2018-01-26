@@ -27,6 +27,7 @@ TODO:
 NOTE:
 ##Make sure you change the host IP depending on the server youre hosting on
 """
+
 class vdot:
     def __init__(self):
         print('[-- VDOT CALLED --]')
@@ -48,7 +49,7 @@ class vdot:
                 if(items=='Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -61,12 +62,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            ##print('x'+miles[0])
+            ###print(miles)
+            ###print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -74,7 +75,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
 
             x = int(x)
             list.insert(0, x) #subtracted time
@@ -85,7 +86,7 @@ class vdot:
         Sorting --  what need to happen here is that each file is deleted upon the script running, but we store the 1500.db in the user fiie. Lets also name it mile or km depending on value.
         """
         string = str(random.randint(1, 100))
-        print(path+'/tmp/'+'x'+string+'miles.db')
+        #print(path+'/tmp/'+'x'+string+'miles.db')
         conn = lite.connect(path+'/tmp/'+'x'+string+'miles.db')
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
@@ -111,8 +112,8 @@ class vdot:
         vdotC = vdot()
         selfs = None
         vdotNum = vdot.vdotMiles(selfs, runnerTime)
-        #print(vdotNum)
-        #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        ##print(vdotNum)
+        ##print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
     def vdot1500(self, runnerTime, path):
         x, y = runnerTime.split(':')
@@ -132,7 +133,7 @@ class vdot:
                 if(items=='1500'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -145,12 +146,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            ##print('x'+miles[0])
+            ###print(miles)
+            ###print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -158,7 +159,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -193,8 +194,8 @@ class vdot:
         vdotC = vdot()
         selfs = None
         vdotNum = vdot.vdotMiles(selfs, runnerTime)
-        #print(vdotNum)
-        #print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
+        ##print(vdotNum)
+        ##print('The VDOT for time: '+str(runnerTime)+' is: '+str(vdotNum[0]))
         """
     def vdot1600(self, runnerTime, path):
         x, y = runnerTime.split(':')
@@ -214,7 +215,7 @@ class vdot:
                 if(items=='1600'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -227,12 +228,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            ##print('x'+miles[0])
+            ###print(miles)
+            ###print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -240,7 +241,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -285,7 +286,7 @@ class vdot:
                 if(items=='3000M'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -298,12 +299,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            ##print('x'+miles[0])
+            ###print(miles)
+            ###print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -311,7 +312,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -356,7 +357,7 @@ class vdot:
                 if(items=='3200'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -369,12 +370,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            #print('error: '+miles[0])
+            ###print(miles)
+            ##print('error: '+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -382,7 +383,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -427,7 +428,7 @@ class vdot:
                 if(items=='2 Mile'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -440,12 +441,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            #print('error: '+miles[0])
+            ###print(miles)
+            ##print('error: '+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -453,7 +454,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -498,7 +499,7 @@ class vdot:
                 if(items=='5000M'): # gets rid of row one -- mile
                     pass
                 else:
-                    ##print(items)
+                    ###print(items)
                     listV = []
                     listV.insert(0, items)
                     listV.insert(1, vdotNum)
@@ -511,12 +512,12 @@ class vdot:
         output = []
         x = 0
         for miles in db:
-            ##print(miles)
-            ##print('x'+miles[0])
+            ###print(miles)
+            ###print('x'+miles[0])
             x, y = miles[0].split(':')
             mileTime = int(x)*60
             mileTime = mileTime + int(y)
-            #print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
+            ##print('VDOTNUMBER: '+str(miles[1])+' ITS SECONDS: '+str(mileTime))
             list = []
             """
             x is the math
@@ -524,7 +525,7 @@ class vdot:
             x = int(Vmiles) - int(mileTime)
             x = str(x)
             x = x.replace('-', '')
-            #print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
+            ##print('USERTIME: '+str(Vmiles)+' - VDOT SECONDS: '+ str(mileTime)+' THE DISTANCE BETWEEN THE TWO: '+str(x))
             x = int(x)
             list.insert(0, x) #subtracted time
             list.insert(1, miles[1]) #vdot
@@ -563,29 +564,30 @@ class vdot:
             os.mkdir(path+'/tmp')
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
-            print(x + '[-- Tmp dir did exsist, refreshing it now --]')
+            #print(x + '[-- Tmp dir did exsist, refreshing it now --]')
         except:
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
-            print(x + '[-- Tmp dir did not exsist, creating one --]')
+            #print(x + '[-- Tmp dir did not exsist, creating one --]')
             os.mkdir(path+'/tmp')
-        print('data: '+str(data))
+        #print('data: '+str(data))
         mileVdot = vdotC.vdotMiles(data[4], path)
         mile2Vdot = vdotC.vdotMileTwo(data[5], path)
         meter5000Vdot = vdotC.vdot5000M(data[6], path)
         meter3000Vdot = vdotC.vdot3000M(data[7], path)
         meter1500 = vdotC.vdot3200(data[8], path)
         meter1600 = vdotC.vdot1600(data[9], path)
-        print('m: '+str(mileVdot))
+        #print('m: '+str(mileVdot))
 
         advVdot = int(mileVdot)+int(mile2Vdot)+int(meter5000Vdot)+int(meter3000Vdot)+int(meter1500)+int(meter1600)
-        print(advVdot)
+        #print(advVdot)
         a = 6
         advVdot = advVdot / a #adv
         advVdot = str(advVdot)
         advVdot, x = advVdot.split('.')
-        print(advVdot)
+        #print(advVdot)
         return advVdot
+
 class networking:
     def __init__(self):
         try:
