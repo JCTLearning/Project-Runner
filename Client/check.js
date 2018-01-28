@@ -22,7 +22,7 @@ function getSSData() {
     //Add the check online button
     var checkOnline = document.createElement("button");
     checkOnline.innerHTML = "Check Online"
-
+    checkOnline.className = "sysButton"
     document.getElementById('mainBody').appendChild(checkOnline);
 
     var addOne =  document.createElement("button");
@@ -30,12 +30,14 @@ function getSSData() {
     document.getElementById('mainBody').appendChild(addOne);
     checkOnline.addEventListener("click", checkOnlineF);
     addOne.addEventListener("click", addDb);
-
+    addOne.className = "sysButton"
     //Add the logout button
     var logoutButton = document.createElement("button");
     logoutButton.innerHTML = 'Logout'
     logoutButton.id = 'logoutButtonId'
+    logoutButton.className = "sysButton"
     document.getElementById('mainBody').appendChild(logoutButton);
+
     //Bind the logout button
 
     logoutButton.addEventListener("click", function(s, xml = null) {
@@ -85,7 +87,7 @@ function getSSData() {
       //Create new xml header text
       var xmlText = document.createElement('h');
       xmlText.id = "xmlText"
-      xmlText.innerHTML = "Here are some of your online databases"
+      xmlText.innerHTML = "Here are some of your on disk databases"
       document.getElementById('xmlBlock').appendChild(xmlText)
       //Create xml button div
       var xmlButDiv = document.createElement('div')
@@ -103,6 +105,7 @@ function getSSData() {
           var button =  document.createElement("button");
           button.innerHTML = dataText
           button.id = dataHolder
+          button.className = "button"
 
           document.getElementById('xmlButton').appendChild(button);
           /*
@@ -205,6 +208,7 @@ function checkOnlineF() {
           var logoutButton = document.createElement("button");
           logoutButton.innerHTML = 'Logout'
           logoutButton.id = 'logoutButtonId'
+          logoutButton.className = "sysButton"
           document.getElementById('mainBody').appendChild(logoutButton);
           //Bind the logout button
 
@@ -275,7 +279,7 @@ function checkOnlineF() {
                 var button =  document.createElement("button");
                 button.innerHTML = dataText
                 button.id = dataHolder
-
+                button.className = 'button'
                 document.getElementById('xmlButton').appendChild(button);
                 /*
                 AHAHAHHAAHAHAHA THAT WAS A GUESS I DIDNT THINK DEFINING A VAR IN THE FUNCTION CALL WOULD CARRY THE DATA INTO THE FUNCTION LMAO
@@ -367,17 +371,21 @@ function check() {
     if(returnResult == 1) {
       document.getElementById('headerMessage').innerHTML = "Couldn't Find anythin' :C"
       document.getElementById('details').innerHTML = "we couldn't find any data on the local disk, would you like to check online or add one?"
+
       var checkOnline = document.createElement("button");
       checkOnline.innerHTML = "Check Online"
-
+      checkOnline.className = "sysButton"
       document.getElementById('mainBody').appendChild(checkOnline);
 
       var addOne =  document.createElement("button");
       addOne.innerHTML = "Create One"
+      addOne.className = "sysButton"
       document.getElementById('mainBody').appendChild(addOne);
+
       var logoutButton = document.createElement("button");
       logoutButton.innerHTML = 'Logout'
       logoutButton.id = 'logoutButtonId'
+      logoutButton.className = "sysButton"
       document.getElementById('mainBody').appendChild(logoutButton);
       logoutButton.addEventListener("click", function(s, xml = null) {
         //i just copied this part ignore the random vars kek

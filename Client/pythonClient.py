@@ -1,4 +1,3 @@
-
 #TestClient#
 import socket
 import sys
@@ -104,10 +103,6 @@ class networking:
             if(listXml != 0):
                 return 0 #True -- The DB is there
             if(listXml == 0):
-                try:
-                    os.makedirs('runnerData') # Gonna go ahead and make the dir here so we can populate it later.
-                except:
-                    pass #Meaning the folder is there yet the files arent...
                 return 1 # False -- The files and or the folder isnt there
 
         if(check == False):
@@ -153,10 +148,12 @@ class networking:
             serverUrl = host+xmlFile #xml holds: usernameFolder/filename: ''''http://localhost/Username/testDb.xml')'''
             protocol = 'http://'
             header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.'}
-            print(host)
-            print(xmlFile)
-            print(serverUrl)
-            response = requests.get(protocol+serverUrl, headers = header)
+            print(protocol+serverUrl)
+            x = protocol+serverUrl
+            x = x.strip('%0A', '')
+
+            print(x)
+            response = requests.get(x)#, headers = header)
             print(response.content)
             with open('/runnerData/'+xmlFile, 'wb') as files:
                 #print('wri')

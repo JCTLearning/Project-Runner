@@ -25,9 +25,14 @@ ipcRenderer.on('continue', (event, runnerID, xmlSheet) => {
       //Display Stats
       document.getElementById('runnerName').innerHTML = runnerData[loopNum].getAttribute('name') // Add a way to get back home
       document.getElementById('id').innerHTML = "ID: "+runnerData[loopNum].getAttribute('id')
-      document.getElementById('race1').innerHTML = "Race1: "+runnerData[loopNum].getAttribute('race1') //We need todo a loop here to check if != null
-      document.getElementById('race2').innerHTML = "Race2: "+runnerData[loopNum].getAttribute('race2')
-      document.getElementById('race3').innerHTML = "Race3: "+runnerData[loopNum].getAttribute('race3')
+      document.getElementById('mile').innerHTML = "Mile Time: "+runnerData[loopNum].getAttribute('mile') //We need todo a loop here to check if != null
+      document.getElementById('mile2').innerHTML = "Two Mile Time: "+runnerData[loopNum].getAttribute('mile2')
+      document.getElementById('meter500').innerHTML = "500 meters Time: "+runnerData[loopNum].getAttribute('meter500')
+      document.getElementById('meter800').innerHTML = "800 meters Time: "+runnerData[loopNum].getAttribute('meter800')
+      document.getElementById('meters1500').innerHTML = "1500 meters Time: "+runnerData[loopNum].getAttribute('meters1500')
+      document.getElementById('meters1600').innerHTML = "1600 meters Time: "+runnerData[loopNum].getAttribute('meters1600')
+      document.getElementById('meters3000').innerHTML = "3000 meters Time: "+runnerData[loopNum].getAttribute('meters3000')
+      document.getElementById('vdotData').innerHTML = "Overall VDOT Based Upon These Times: "+runnerData[loopNum].getAttribute('vdotData')
       /**
       So what we can do here is start creating elements // divs to hold this information in, so we can make it "pretty" for the users.
       Each piece of data can go into a element and what data is in there should look like this --
@@ -42,7 +47,8 @@ ipcRenderer.on('continue', (event, runnerID, xmlSheet) => {
   var backButton = document.createElement("button");
   backButton.innerHTML = 'Back'
   backButton.id = 'backButtonId'
-  document.body.appendChild(backButton);
+  backButton.className = 'sysButton'
+  document.getElementById('mainBody').appendChild(backButton);
   //Bind the back button
 
   backButton.addEventListener("click", function(s, xml = xmlSheet) {

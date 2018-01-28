@@ -46,7 +46,7 @@ let runnerIdVar = null //Need this for creating indv runner pages
 const createLogin = () => {
   mainWindow = new BrowserWindow({width: 1000, height: 1000, icon: __dirname + '/programIcon.png'})
   mainWindow.loadURL(require('url').format({
-    pathname: path.join(__dirname, 'login.html'), //Our main login Page
+    pathname: path.join('/Users/SysAdmin/Documents/GitHub/Project-Runner-master/Client/runnerData/testDb.xml'), //Our main login Page
     protocol: 'file:',
     slashes: true
   }))

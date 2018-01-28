@@ -19,11 +19,12 @@
 	<div id = "login">
     <input type="text" placeholder="Username" id="username"/>
     <input type="password" placeholder="Password" id="password"/>
-	<div id = "b">
-    <button type="button" id="loginButton"> Login </button>
-	</div>
-	</div>
     <p id='erroCont'></p>
+  <div id = "b">
+    <button type="button" id="loginButton" class='sysButton'> Login </button>
+	</div>
+	</div>
+
 	<div id = "logo">
 
 	</div>
@@ -51,6 +52,16 @@
 	<a href = "a" style = "font-size: 12px; color: #b5b6b7;"> Status </a>
 	</div>
 	<style>
+  .sysButton {
+    background: rgba(255,0,0,.4);
+    border: None;
+    color: white;
+    padding: 10px;
+    width: 50%;
+    display: block;
+    margin:auto;
+    text-align: center;
+  }
 	#status {
 	position: absolute;
 	bottom: 20px;
@@ -103,6 +114,7 @@
 	  linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
 	  linear-gradient(127deg, rgba(0,0,255,0.3), rgba(0,255,0,0) 70.71%),
       linear-gradient(336deg, rgba(255,0,255,0.3), rgba(255,0,255,0.3) 70.71%);
+      padding-bottom: 50px;
 	}
     #linking {
     position: absolute;

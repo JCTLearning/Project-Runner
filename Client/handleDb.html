@@ -39,18 +39,37 @@
   	</div>
   </div>
   	<style>
+
+    .button {
+      background: rgba(255,0,0,.4);
+      border: 10px;
+      color: white;
+      padding: 10px;
+      width: 50%;
+
+      text-align: center;
+    }
+    .sysButton {
+      background: rgba(255,0,0,.4);
+      border: none;
+      color: white;
+      padding: 5px;
+      width: 50%;
+      display: block;
+      margin:auto;
+      text-align: center;
+    }
     #xmlBlock {
       padding: 1em;
-
-
     }
     #mainBody {
       background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
       linear-gradient(127deg, rgba(0,0,255,0.3), rgba(0,255,0,0) 70.71%),
         linear-gradient(336deg, rgba(255,0,255,0.3), rgba(255,0,255,0.3) 70.71%);
       position: absolute;
+      padding-bottom: 20px;
     	left: 40%;
-    	top: 25%;
+    	top: 10%;
     	width:20%;
     	background-color: #ff6de4;
     	border: 1px solid black;
@@ -97,7 +116,7 @@
   	left: 95%;
   	}
   		#footer {
-  	position: absolute;
+  	position: fixed;
   	right: 0;
   	bottom: 0;
   	left: 0;
@@ -111,13 +130,14 @@
   	  linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
   	  linear-gradient(127deg, rgba(0,0,255,0.3), rgba(0,255,0,0) 70.71%),
         linear-gradient(336deg, rgba(255,0,255,0.3), rgba(255,0,255,0.3) 70.71%);
+      overflow: scroll;
   	}
-      #linking {
+    #linking {
       position: absolute;
-  	left: 49%;
+      left: 49%;
       bottom: 40%;
       font-size: 12px;
-      }
+    }
   </body>
 
 
