@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var backButton = document.createElement("button");
   backButton.innerHTML = 'Back'
   backButton.id = 'backButtonId'
+  backButton.className = 'sysButton'
   document.getElementById('mainBody').appendChild(backButton);
   //Bind the back button
 

@@ -15,7 +15,7 @@
       <p id = "details"> Here you can build up a runner training data base off of a Google spreadsheet. Please follow the example spreadsheet provided  <a href='openExampleUrl.html'>here</a> </p>
       <input type='text' placeholder = 'Example Team Name' id='teamName'/>
       <input type='text' placeholder = 'https://docs.google.com/d/examplespreadsheet' id='spreadsheetUrl'/>
-      <button type='button' id='spreadsheetButton'>Upload SpreadSheet Data</button>
+      <button type='button' id='spreadsheetButton' class='button'>Upload SpreadSheet Data</button>
       <p id='erroCont'></p>
     </div>
     <div id = "footer">
@@ -44,6 +44,34 @@
   </div>
   	<style>
 
+    input[type=text]{
+      	margin: auto
+      	display: block;
+      	margin: 0 0 1em 0;
+      	width: 90%;
+      	border: 1px solid #818181;
+      	padding: 5px
+      }
+    .sysButton {
+      background: rgba(255,0,0,.4);
+      border: None;
+      color: white;
+      padding: 10px;
+      width: 25%;
+      display: block;
+      margin:auto;
+      text-align: center;
+    }
+    .button {
+      background: rgba(255,0,0,.4);
+      border:  none;
+      color: white;
+      padding:  15px;
+      width: 50%;
+      display: block;
+      margin: auto;
+      text-align: center;
+    }
     #mainBody {
       background:
       linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
