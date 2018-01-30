@@ -32,11 +32,12 @@ function buildSpreadsheet() {
         }
       });
       child2.stdout.on('data', function(data) {
-        if (data == 0) {
+        Data = parseInt(data)
+        if (data == '0') {
           //success
           ipcRenderer.send('returnResult', 'null') //Since it was a success we reload the page so we may find the downloaded spreadsheet
         }
-        if (data == 1) {
+        if (data == '1') {
           // Fail
           document.getElementById('headerMessage').innerHTML = "Download Failed"
           document.getElementById('details').innerHTML = "Please check your internet connection and restart the program...";
