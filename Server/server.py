@@ -564,11 +564,11 @@ class vdot:
             os.mkdir(path+'/tmp')
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
-            ###print(x + '[-- Tmp dir did exsist, refreshing it now --]')
+            print(x + '[-- Tmp dir did exsist, refreshing it now --]')
         except:
             x = datetime.datetime.time(datetime.datetime.now())
             x = str(x)[:8]
-            ###print(x + '[-- Tmp dir did not exsist, creating one --]')
+            print(x + '[-- Tmp dir did not exsist, creating one --]')
             os.mkdir(path+'/tmp')
         ###print('data: '+str(data))
         mileVdot = vdotC.vdotMiles(data[4], path)
@@ -839,18 +839,18 @@ class procData:
         isNum = '' #to prevent 'refrence before assignemnt error'
         while(self.currentRow != int(self.numOfRunners + 1 )):
             try:
-                print('starting the try')
+                #print('starting the try')
                 data = self.userSS.row_values(self.rowNum)
-                print(data)
+                #print(data)
                 secData = data[4]
 
                 x, y = secData.split(':') #fail point
                 isNum = 'yes'
             except:
-                print('caught the error')
+                #print('caught the error')
                 isNum = 'no'
             if(isNum == 'yes'):
-                print('started a runner')
+                #print('started a runner')
                 self.rowval = self.userSS.row_values(self.rowNum)
 
                 for x in self.rowval:
@@ -872,7 +872,7 @@ class procData:
                 """
                 input data into xml
                 """
-                print('inserting runner:'+ str(self.runnerData[1])+' into xml')
+                #print('inserting runner:'+ str(self.runnerData[1])+' into xml')
                 Et.SubElement(self.runner, "Data", id = self.runnerData[0], name = str(str(self.runnerData[1])+' '+str(self.runnerData[2])), vdotData = self.vdotData, meter800 = self.runnerData[3], mile = self.runnerData[4], mile2 = self.runnerData[5], meter500 = self.runnerData[6], meters3000 = self.runnerData[7], meters1500 = self.runnerData[8], meters1600 = self.runnerData[9])
                 """
                 Insert into Db
@@ -882,10 +882,10 @@ class procData:
                 self.conn.commit()
                 self.currentRow = self.currentRow + 1
                 self.rowNum = self.rowNum + 1
-                print('finished a runner')
+                #print('finished a runner')
                 #End of Loop
             if(isNum != 'yes'):
-                print('is not a runner, passing')
+                #print('is not a runner, passing')
                 self.currentRow = self.currentRow + 1
                 self.rowNum = self.rowNum + 1
                 #end of not a number loop
@@ -899,7 +899,7 @@ class procData:
         self.tree.write(self.xmlUrl) #Xml is written and cleaned up
         self.conn.commit() #Commit to the db -- forgot todo this earlier and the ss were not saving in the db...
         self.c.close() #DB is finished here
-        print(self.tree)
+        #print(self.tree)
 
         #Before returning it, I would make it a url for the client to grab, maybe for now we just point at local host, but idk.
         x = datetime.datetime.time(datetime.datetime.now())
