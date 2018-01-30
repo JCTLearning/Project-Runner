@@ -5,6 +5,7 @@ import json
 import os
 import glob
 import requests
+import urllib.request as u
 #0xL0S$#$auth_@#@_Username:Password -- login
 class networking:
     def __init__(self):
@@ -142,26 +143,13 @@ class networking:
         self.result = self.s.recv(1024).decode()
         return(self.result)
         #print(self.result)
-    def getHostXmlFile(self, xmlFile):
-        host = 'localhost'
-        try:
-            serverUrl = host+xmlFile #xml holds: usernameFolder/filename: ''''http://localhost/Username/testDb.xml')'''
-            protocol = 'http://'
-            header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.'}
-            print(protocol+serverUrl)
-            x = protocol+serverUrl
-            x = x.strip('%0A', '')
-
-            print(x)
-            response = requests.get(x)#, headers = header)
-            print(response.content)
-            with open('/runnerData/'+xmlFile, 'wb') as files:
-                #print('wri')
-                files.write(response.content)
-                files.close()
-            return 0
-        except:
-            return 1
+    def getHostXmlFile(self, xmlFile, files):
+        fd = u.urlopen('http://localhost' + xmlFile)
+        data = fd.read()
+        files = files.replace('\n', '')
+        print(files)
+        with open('runnerData/' + files, 'wb') as f:
+            f.write(data)
 
 
 class main:
@@ -249,7 +237,8 @@ class main:
                 jsonData = json.load(jsonFile)
                 user = str(jsonData["username"])
             xmlSheet = '/'+user+'/'+self.commandArgs
-            result = networkingC.getHostXmlFile(xmlSheet)
+            print(xmlSheet)
+            result = networkingC.getHostXmlFile(xmlSheet, self.commandArgs)
             return result
 """
 #-- Start --#
