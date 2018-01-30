@@ -144,13 +144,16 @@ class networking:
         return(self.result)
         #print(self.result)
     def getHostXmlFile(self, xmlFile, files):
-        fd = u.urlopen('http://localhost' + xmlFile)
-        data = fd.read()
-        files = files.replace('\n', '')
-        print(files)
-        with open('runnerData/' + files, 'wb') as f:
-            f.write(data)
-
+        try:
+            fd = u.urlopen('http://localhost' + xmlFile)
+            data = fd.read()
+            files = files.replace('\n', '')
+            print(files)
+            with open('runnerData/' + files, 'wb') as f:
+                f.write(data)
+            return 0 #success
+        except:
+            return 1
 
 class main:
     def __init__(self):
@@ -238,7 +241,7 @@ class main:
                 user = str(jsonData["username"])
             xmlSheet = '/'+user+'/'+self.commandArgs
             print(xmlSheet)
-            result = networkingC.getHostXmlFile(xmlSheet, self.commandArgs)
+            result = networkingC.getHostXmlFile(xmlSheet, self.commandArgs)#0xGXL$#$testDb.xml
             return result
 """
 #-- Start --#
