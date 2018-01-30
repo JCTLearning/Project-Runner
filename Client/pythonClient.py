@@ -147,8 +147,9 @@ class networking:
         try:
             fd = u.urlopen('http://localhost' + xmlFile)
             data = fd.read()
+
             files = files.replace('\n', '')
-            print(files)
+            #print(files)
             with open('runnerData/' + files, 'wb') as f:
                 f.write(data)
             return 0 #success
@@ -240,12 +241,13 @@ class main:
                 jsonData = json.load(jsonFile)
                 user = str(jsonData["username"])
             xmlSheet = '/'+user+'/'+self.commandArgs
-            print(xmlSheet)
+            #print(xmlSheet)
             result = networkingC.getHostXmlFile(xmlSheet, self.commandArgs)#0xGXL$#$testDb.xml
             return result
 """
 #-- Start --#
 """
+sys.stdout.flush()
 electronCommand =  sys.stdin.readline()#)raw_input('sys.stdin.readline(): ')
 #pass the arg
 mainC = main()

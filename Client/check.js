@@ -299,14 +299,16 @@ function checkOnlineF() {
                     }
                   });
                   fetchXml.stdout.on('data', function(data) {
-                    console.log(data)
+                    Data = parseInt(data)
+                    console.log(Data+'<- data')
                     document.getElementById('headerMessage').innerHTML = 'Loading'
                     document.getElementById('details').innerHTML = "Give us a few while we download your db and put it up!"
 
-                    if (data == 0) {
+                    if(Data == '0'){
                       ipcRenderer.send('loginSuccess', 'null') //Reload the page so the new docs show up
+                      console.log('success')
                     }
-                    if (data != 0) {
+                    if(Data == '1'){
                       document.getElementById('headerMessage').innerHTML = 'Oh no'
                       document.getElementById('details').innerHTML = "It seems like we couldn't download your data! Try again in a few or restart the program. Do make sure you're connected to the internet!"
 
