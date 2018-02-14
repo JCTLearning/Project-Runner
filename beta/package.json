@@ -1,0 +1,14 @@
+{
+  "name": "project-runner-test",
+  "version": "1.0.0",
+  "description": "This is the beta test for pr",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Taylor H.",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.8.2"
+  }
+}

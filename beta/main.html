@@ -1,0 +1,130 @@
+<!-- Main Window -->
+<html>
+  <head>
+    <title> Html Template </title>
+    <script type='text/javascript' src='data.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One|Voces" rel="stylesheet">
+  </head>
+  <body>
+    <div id='coverBanner'>
+      <button id='exitButton' class='sysButton'>Exit</button>
+      <button id='minMize' class='sysButton'>Minimize</button>
+      <button id='maxMize' class='sysButton'>Maximize</button>
+
+    </div>
+    <div id='mainBody'>
+      <div class="bodyBlocks">
+        <div class="head">
+          <h> VDOT CALC </h>
+        </div>
+        <div class="bodyText" id='bodyText'>
+          <p id="mainText"> Input your time </p>
+
+          <input placeholder="time" id="time" />
+          <div id="buttons">
+            <button id='1500'>1500</button>
+            <button id='1600'>1600</button>
+            <button id='3000'>3000</button>
+            <button id='3200'>3200</button>
+            <button id='5000'>5000</button>
+            <button id='mile'>Mile</button>
+            <button id='mile2'>2 Miles</button>
+          </div>
+        </div>
+</div>
+
+    </div>
+    <style>
+     #city {
+      background: #818181;
+      align: center;
+    	margin: 0 0 1em 0;
+      color: white;
+      margin-top:  10px;
+    	border: 1px solid #818181;
+    	padding: 5px
+     }
+     #enterButton {
+       color: white;
+       align-content: center;
+       font-size: 14px;
+       text-align: center;
+       padding: 5px 16px;
+       text-decoration: none;
+      background-color: #333;
+       border: none;
+     }
+     .sysButton {
+       align-content: center;
+       float: right;
+       font-size: 18px;
+       color: white;
+       text-align: center;
+       padding: 14px 16px;
+       text-decoration: none;
+       -webkit-app-region: no-drag;
+       background-color: #333;
+       border: none;
+
+       }
+      .bodyBlocks {
+        border-color: #424242;
+        border-width: 2px;
+        margin-top:10px;
+        width: 90%;
+        margin-left: 5%;
+        background: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+      }
+      .head {
+        font-size: 18px;
+        color: white;
+        text-align: center;
+        padding: 15px 16px;
+        text-decoration: none;
+        overflow: hidden;
+        background-color: #333;
+      }
+      .bodyText {
+        text-align: center;
+        font-family: 'Poiret One', cursive;
+        overflow: hidden;
+        background: #595959;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        height: 200px;
+
+      }
+      .links {
+        -webkit-app-region: no-drag;
+        float: left;
+        font-size: 18px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        -webkit-app-region: no-drag;
+        background-color: #333;
+        border: none;
+      }
+      #coverBanner a:hover, .sysButton:hover, .links:hover {
+        background: #262626;
+      }
+      #coverBanner{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-app-region: drag;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      html {
+        background: #424242;
+        font-family: 'Voces', cursive;
+      }
+    </style>
+  </body>
+
+
+</html>

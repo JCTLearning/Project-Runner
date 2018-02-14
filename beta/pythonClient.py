@@ -1,6 +1,6 @@
 import sqlite3 as lite
 import os
-
+import sys
 class vdot:
     def __init__(self):
         pass
@@ -15,16 +15,20 @@ class vdot:
         x = 0
         for items in data:
             types1 = items[int(types)]
-            mins, secs = types1.split(':')
+            try:
+                mins, secs = types1.split(':')
+                pass
+            except:
+                return 0
             vdotTime = int(int(mins) * 60) + int(secs)
             vdotNum = str(items[0])
             difference = str(int(vdotTime) - int(time))
             difference = difference.replace('-','')
             listS = [difference, vdotNum]
             bigL.insert(x, listS)
-            print("VDOT: "+str(items[0]))
+            #print("VDOT: "+str(items[0]))
             x = x + 1
-        print(bigL)
+        #print(bigL)
         try:
             os.remove('vdot.db')
         except:
@@ -33,7 +37,7 @@ class vdot:
         c = conn.cursor()
         c.execute("create table data(vdot int, time int)")
         for items in bigL:
-            print(items)
+            #print(items)
             #each item is now a list that contains time and vdot soooo
             c.execute("insert into data(vdot, time) values (?, ?)", (items[1], items[0]) )
         conn.commit()
@@ -45,5 +49,13 @@ class vdot:
         returnV = c.fetchall()
         return returnV
 vdotC = vdot()
-x = vdot.fetchVdotNum('1', '5:18')
-print(x[0])
+inputs = sys.stdin.readline()
+row, time = inputs.split("#")
+try:
+    x = vdot.fetchVdotNum(row, time)
+    pass
+except:
+    print('0')
+    exit()
+output = x[0]
+print(output[0])
